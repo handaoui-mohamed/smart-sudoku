@@ -1,3 +1,6 @@
 <resources>
-    <string name="app_name">SmartSudoku</string>
+    <string name="app_name">Smart SuDoKu</string>
+    <string name="play">Jouer</string>
+    <string name="about">A propos</string>
+    <string name="go_back">Retour</string>
 </resources>
