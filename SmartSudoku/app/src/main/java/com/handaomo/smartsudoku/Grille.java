@@ -71,7 +71,32 @@ public class Grille extends View {
         w = w - (w % 9);
         n = w / 9;
 
+        int spacing = 10;
+
+        canvas.drawLine(( n * 0) + spacing, spacing, n, spacing, paint1);
+        canvas.drawLine(n * 1 + n + spacing, n + spacing, n, n + spacing, paint1);
+
+        canvas.drawLine(( n * 0)  + spacing, ( n * 0) + spacing, ( n * 0)  + spacing, n, paint1);
+        canvas.drawLine(( n * 1)  + spacing, (n * 1) + spacing, ( n * 1)  + spacing, n * 2, paint1);
+
+
+//        for (int i = 0; i < 9; i++) {
+//            for (int j = 0; j < 9; j++) {
+//                canvas.drawLine(n * j, (n * i) + spacing, n + n * j - spacing, (n * i) + spacing, paint1);
+//                canvas.drawLine(n * (j + 1), (n * i) + spacing, n + n * (j + 1) - spacing, (n * i) + spacing, paint1);
+//
+//                canvas.drawLine((n * i) + spacing, n * j, (n * i) + spacing, n + n * j - spacing, paint1);
+//                canvas.drawLine((n * i) + spacing, n * (j + 1), (n * i) + spacing, n + n * (j + 1) - spacing, paint1);
+//            }
+//        }
+
         // Dessiner w lignes verticles et w lignes horizontales noires
+        for (int i = 0; i < 9; i++) {
+            canvas.drawLine(0, n * i, w, n * i, paint1);
+            canvas.drawLine(n * i, 0, n * i, w, paint1);
+        }
+
+
         // Dessiner 2 lignes rouges verticales et 2 lignes rouges horizontales
 
         // Les contenus des cases
