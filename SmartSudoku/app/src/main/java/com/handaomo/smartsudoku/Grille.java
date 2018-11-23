@@ -73,42 +73,41 @@ public class Grille extends View {
 
         int spacing = 10;
 
-        canvas.drawLine(( n * 0) + spacing, spacing, n, spacing, paint1);
-        canvas.drawLine(n * 1 + n + spacing, n + spacing, n, n + spacing, paint1);
+        for (int i = 0; i < w; i+=n) {
+            for (int j = 0; j < w; j+=n) {
+                // horizontal
+                canvas.drawLine(j + spacing, i + spacing, j + n, i + spacing, paint1);
+                canvas.drawLine(j + spacing, i + n , j + n, i + n, paint1);
 
-        canvas.drawLine(( n * 0)  + spacing, ( n * 0) + spacing, ( n * 0)  + spacing, n, paint1);
-        canvas.drawLine(( n * 1)  + spacing, (n * 1) + spacing, ( n * 1)  + spacing, n * 2, paint1);
-
-
-//        for (int i = 0; i < 9; i++) {
-//            for (int j = 0; j < 9; j++) {
-//                canvas.drawLine(n * j, (n * i) + spacing, n + n * j - spacing, (n * i) + spacing, paint1);
-//                canvas.drawLine(n * (j + 1), (n * i) + spacing, n + n * (j + 1) - spacing, (n * i) + spacing, paint1);
-//
-//                canvas.drawLine((n * i) + spacing, n * j, (n * i) + spacing, n + n * j - spacing, paint1);
-//                canvas.drawLine((n * i) + spacing, n * (j + 1), (n * i) + spacing, n + n * (j + 1) - spacing, paint1);
-//            }
-//        }
-
-        // Dessiner w lignes verticles et w lignes horizontales noires
-        for (int i = 0; i < 9; i++) {
-            canvas.drawLine(0, n * i, w, n * i, paint1);
-            canvas.drawLine(n * i, 0, n * i, w, paint1);
+                // vertical
+                canvas.drawLine(j + spacing, i + spacing, j + spacing, i + n, paint1);
+                canvas.drawLine(j + n , i + spacing,  j + n ,i + n, paint1);
+            }
         }
 
-
         // Dessiner 2 lignes rouges verticales et 2 lignes rouges horizontales
+        paint3.setColor(getResources().getColor(R.color.red));
+        paint3.setStrokeWidth(spacing);
+        canvas.drawLine(spacing, n * 3 + (spacing / 2), w, n * 3 + (spacing / 2), paint3);
+        canvas.drawLine(spacing, n * 6 + (spacing / 2), w, n * 6 + (spacing / 2), paint3);
 
+        canvas.drawLine(n * 3 + (spacing / 2), spacing, n * 3 + (spacing / 2), w, paint3);
+        canvas.drawLine(n * 6 + (spacing / 2), spacing, n * 6 + (spacing / 2), w, paint3);
+
+
+        final float textSize = 24f;
+        paint1.setTextSize(textSize);
+        paint2.setTextSize(textSize);
         // Les contenus des cases
         String s;
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 s = "" + (matrix[j][i] == 0 ? "" : matrix[j][i]);
                 if (fixIdx[j][i])
-                    canvas.drawText(s, i * n + (n / 2) - (n / 10), j * n
+                    canvas.drawText(s, i * n + (n / 2) - (n / 10) + spacing, j * n
                             + (n / 2) + (n / 10), paint2);
                 else
-                    canvas.drawText(s, i * n + (n / 2) - (n / 10), j * n
+                    canvas.drawText(s, i * n + (n / 2) - (n / 10) + spacing, j * n
                             + (n / 2) + (n / 10), paint1);
             }
         }
