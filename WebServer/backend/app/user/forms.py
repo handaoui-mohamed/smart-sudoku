@@ -13,12 +13,12 @@ class RegistrationForm(FlaskForm):
 
     first_name = StringField('first_name', validators=[
         Length(max=50, message="Le prénom doit être < 100 caractères"),
-        DataRequired('Le mot de passe est nécessaire')
+        DataRequired('Le prénon est nécessaire')
     ])
     
     last_name = StringField('last_name', validators=[
         Length(max=50, message="Le nom doit être < 100 caractères"),
-        DataRequired('Le mot de passe est nécessaire')
+        DataRequired('Le nom est nécessaire')
     ])
     
     password = PasswordField('password', validators=[
@@ -44,7 +44,7 @@ class LoginForm(FlaskForm):
     ])
 
     password = PasswordField('password', validators=[
-        Length(min=8, message="Le nom mot de passe doit être > 8 caractères"),
+        Length(min=8, message="Le mot de passe doit être > 8 caractères"),
         DataRequired('Le mot de passe est nécessaire')
     ])
 

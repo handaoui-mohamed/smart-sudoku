@@ -92,11 +92,11 @@
                     $('#signup-btn').prop('disabled', true);
                     var objectData = {
                         username: document.getElementById('username').value,
-                        firstname: document.getElementById('firstname').value,
-                        lastname: document.getElementById('lastname').value,
+                        first_name: document.getElementById('firstname').value,
+                        last_name: document.getElementById('lastname').value,
                         password: document.getElementById('password').value
                     };
-                    console.log(objectData);
+                    
                     $.ajax({
                         type: "POST",
                         url: "http://localhost:5000/api/users",
@@ -104,7 +104,7 @@
                         data: JSON.stringify(objectData),
                         success: function (data) {
                             msgHeader.text("Success !");
-                            msgContent.text("New account was created successfully.");
+                            msgContent.text("A new account was created successfully.");
                             msgContainer.css('background-color', '#2ecc71');
                             msgContainer.fadeIn(100);
                             setTimeout(function () {
@@ -115,12 +115,12 @@
                         error: function () {
                             $('#signup-btn').prop('disabled', false);
                             msgHeader.text("Error !");
-                            msgContent.text("Username or Password incorrect.");
+                            msgContent.text("Username already exists, please choose a new one.");
                             msgContainer.css('background-color', '#e74c3c');
                             msgContainer.fadeIn(100);
                             setTimeout(function () {
                                 msgContainer.fadeOut(300);
-                            }, 3000);
+                            }, 5000);
                         }
                     });
                     event.preventDefault();
