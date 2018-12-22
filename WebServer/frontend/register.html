@@ -1,0 +1,135 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Smart SuDoku : Signup</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="sudoku, smart, smart-sudoku, smart sudoku" />
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!-- fonts -->
+    <!-- <link href="//fonts.googleapis.com/css?family=Raleway:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+<link href="//fonts.googleapis.com/css?family=Monoton" rel="stylesheet"> -->
+    <!-- /fonts -->
+    <!-- css -->
+    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="css/register_style.css" rel='stylesheet' type='text/css' media="all" />
+    <!-- /css -->
+</head>
+
+<body>
+    <div id="signup-msg">
+        <div id="msg-header-container">
+            <div id="msg-header">Message header</div>
+            <div id="msg-close-btn">x</div>
+        </div>
+        <div id="msg-content">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Modi, vero!</div>
+    </div>
+    <div class="content-w3ls" style="margin-top:50px">
+        <div class="content-agile1">
+            <h2 class="agileits1">Signup Now</h2>
+            <p class="agileits2">Create a new account, and start playing Smart SuDoku</p>
+        </div>
+        <div class="content-agile2">
+            <form id="signup-form" method="post">
+                <div class="form-control w3layouts">
+                    <input type="text" id="username" name="Username" placeholder="Username" title="Please enter your username"
+                        required="" autocomplete="off" maxlength="50">
+                </div>
+
+                <div class="form-control w3layouts">
+                    <input type="text" id="firstname" name="firstname" placeholder="First Name" title="Please enter your First Name"
+                        required="" autocomplete="off" maxlength="50">
+                </div>
+
+                <div class="form-control w3layouts">
+                    <input type="text" id="lastname" name="lastname" placeholder="Last Name" title="Please enter your Last Name"
+                        required="" autocomplete="off" maxlength="50">
+                </div>
+
+                <div class="form-control agileinfo">
+                    <input type="password" class="lock" name="password" placeholder="Password" id="password" required=""
+                        minlength="8">
+                </div>
+
+                <div class="form-control agileinfo">
+                    <input type="password" class="lock" name="confirm-password" placeholder="Confirm Password" id="password2"
+                        required="" minlength="8">
+                </div>
+
+                <input type="submit" id="signup-btn" class="register" value="Register">
+            </form>
+            <script src="js/jquery-1.11.1.min.js"></script>
+            <script type="text/javascript">
+                var msgContainer, msgHeader, msgContent;
+
+                window.onload = function () {
+                    document.getElementById("password").onchange = validatePassword;
+                    document.getElementById("password2").onchange = validatePassword;
+                    $('#signup-form').submit(signup);
+
+                    // signup msg
+                    msgContainer = $('#signup-msg');
+                    msgHeader = $('#msg-header');
+                    msgContent = $('#msg-content');
+
+                    $('#msg-close-btn').click(function () {
+                        msgContainer.fadeOut(300);
+                    });
+                }
+
+                function validatePassword() {
+                    var pass2 = document.getElementById("password2").value;
+                    var pass1 = document.getElementById("password").value;
+                    if (pass1 != pass2)
+                        document.getElementById("password2").setCustomValidity("Passwords Don't Match");
+                    else
+                        document.getElementById("password2").setCustomValidity('');
+                }
+
+                function signup(event) {
+                    event.preventDefault();
+                    $('#signup-btn').prop('disabled', true);
+                    var objectData = {
+                        username: document.getElementById('username').value,
+                        firstname: document.getElementById('firstname').value,
+                        lastname: document.getElementById('lastname').value,
+                        password: document.getElementById('password').value
+                    };
+                    console.log(objectData);
+                    $.ajax({
+                        type: "POST",
+                        url: "http://localhost:5000/api/users",
+                        dataType: "json",
+                        data: JSON.stringify(objectData),
+                        success: function (data) {
+                            msgHeader.text("Success !");
+                            msgContent.text("New account was created successfully.");
+                            msgContainer.css('background-color', '#2ecc71');
+                            msgContainer.fadeIn(100);
+                            setTimeout(function () {
+                                msgContainer.fadeOut(300);
+                                window.location = "index.html";
+                            }, 3000);
+                        },
+                        error: function () {
+                            $('#signup-btn').prop('disabled', false);
+                            msgHeader.text("Error !");
+                            msgContent.text("Username or Password incorrect.");
+                            msgContainer.css('background-color', '#e74c3c');
+                            msgContainer.fadeIn(100);
+                            setTimeout(function () {
+                                msgContainer.fadeOut(300);
+                            }, 3000);
+                        }
+                    });
+                    event.preventDefault();
+                    return false;
+                }
+            </script>
+        </div>
+        <div class="clear"></div>
+    </div>
+</body>
+
+</html>
