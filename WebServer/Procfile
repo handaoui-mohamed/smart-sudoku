@@ -1,2 +1,2 @@
-web: gunicorn app:app
+web: python runp.py
 init: python db_generate.py
