@@ -8,7 +8,7 @@ if os.environ.get('DATABASE_URL') is None:
     HOST_URL = 'http://localhost:5000/api'
 else:
     SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
-    HOST_URL = 'https://somap-api.herokuapp.com/api'
+    HOST_URL = 'https://smart-sudoku.herokuapp.com/api'
 SQLALCHEMY_COMMIT_ON_TEARDOWN=True
 SQLALCHEMY_TRACK_MODIFICATIONS=True
 CORS_HEADERS = 'Content-Type'

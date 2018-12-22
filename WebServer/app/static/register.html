@@ -99,7 +99,7 @@
                     
                     $.ajax({
                         type: "POST",
-                        url: "http://localhost:5000/api/users",
+                        url: "/api/users",
                         dataType: "json",
                         data: JSON.stringify(objectData),
                         success: function (data) {
@@ -109,7 +109,7 @@
                             msgContainer.fadeIn(100);
                             setTimeout(function () {
                                 msgContainer.fadeOut(300);
-                                window.location = "index.html";
+                                window.location = "/home";
                             }, 3000);
                         },
                         error: function () {
