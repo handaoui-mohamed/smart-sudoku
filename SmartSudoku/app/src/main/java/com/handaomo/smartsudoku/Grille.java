@@ -70,7 +70,7 @@ public class Grille extends View {
 
         screenWidth = getWidth();
         screenHeight = getHeight();
-        int w = Math.min(screenWidth, screenHeight) - spacing;
+        int w = Math.min(screenWidth, screenHeight) - spacing / 2;
         w = w - (w % 9);
         n = w / 9;
 
