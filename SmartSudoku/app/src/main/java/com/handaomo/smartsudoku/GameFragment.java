@@ -30,7 +30,7 @@ public class GameFragment extends Fragment {
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), grid.gagne() ? "You won!" : "Please continue!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), grid.gagne() ? "You won!" : "You lost!!", Toast.LENGTH_LONG).show();
             }
         });
 

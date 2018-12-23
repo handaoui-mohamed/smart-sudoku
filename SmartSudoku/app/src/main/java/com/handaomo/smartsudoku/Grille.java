@@ -2,6 +2,7 @@ package com.handaomo.smartsudoku;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -45,7 +46,7 @@ public class Grille extends View {
     private void init() {
         setWillNotDraw(false);
         //Grille de depart
-        if(!initialised) {
+        if (!initialised) {
             set("000105000140000670080002400063070010900000003010090520007200080026000035000409000");
 
             // Grille Gagnante
@@ -58,7 +59,6 @@ public class Grille extends View {
         }
 
 
-
         paint1 = new Paint();
         paint1.setAntiAlias(true);
         // Couleur noire
@@ -66,9 +66,7 @@ public class Grille extends View {
         paint2 = new Paint();
         paint2.setAntiAlias(true);
         paint2.setTextSize(textSize);
-        // Couleur rouge
-        // Taille du texte
-        // Centre le texte
+        paint2.setColor(Color.WHITE);
 
         // Les contenus des cases
         paint3 = new Paint();
@@ -80,24 +78,21 @@ public class Grille extends View {
         paint4 = new Paint();
         paint4.setAntiAlias(true);
         paint4.setTextSize(textSize);
-        // Couleur rouge et grosses lignes
-
-        // Paint 4 ?
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
-        Toast.makeText(getContext(), "canvas", Toast.LENGTH_LONG).show();
-
         screenWidth = getWidth();
         screenHeight = getHeight();
         int w = Math.min(screenWidth, screenHeight) - spacing / 2;
         w = w - (w % 9);
         n = w / 9;
 
-        paint1.setStyle(Paint.Style.STROKE);
+
         for (int i = 0; i < w; i += n) {
             for (int j = 0; j < w; j += n) {
+                // TODO add a new paint for fixed items
+                paint1.setStyle(fixIdx[i / n][j / n] ? Paint.Style.FILL : Paint.Style.STROKE);
                 canvas.drawRect(j + n, i + spacing, j + spacing, i + n, paint1);
             }
         }
@@ -114,7 +109,6 @@ public class Grille extends View {
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 s = "" + (matrix[j][i] == 0 ? "" : matrix[j][i]);
-                Log.i("HELLOHERE", i + "-" + j + "=" + matrix[j][i] + "\t");
                 if (fixIdx[j][i])
                     canvas.drawText(s, i * n + (n / 2) - (n / 10) + spacing / 2, j * n
                             + (n / 2) + (n / 10) + spacing, paint2);
@@ -153,7 +147,6 @@ public class Grille extends View {
     }
 
     public void set(String s) {
-        Log.i("HELLOHERE", "setting");
         // Remplir la matrice matrix a partir d'un vecteur String s
         for (int i = 0; i < 9; i++) {
             set(s.substring(i * 9, i * 9 + 9), i);
