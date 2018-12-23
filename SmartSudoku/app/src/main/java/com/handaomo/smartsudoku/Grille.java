@@ -18,6 +18,7 @@ public class Grille extends View {
     final int SPACING_CONFIG = 5;
     int spacing = SPACING_CONFIG * 2;
 
+    private Paint paint;   // Pour dessiner la grille (lignes noires)
     private Paint paint1;   // Pour dessiner la grille (lignes noires)
     private Paint paint2;   // Pour le texte des cases fixes
     private Paint paint3;   // Pour dessiner les lignes rouges (grosse)
@@ -58,17 +59,19 @@ public class Grille extends View {
             initialised = true;
         }
 
+        paint = new Paint();
+        paint.setAntiAlias(true);
+        paint.setColor(getResources().getColor(R.color.colorPrimaryDark));
 
         paint1 = new Paint();
         paint1.setAntiAlias(true);
-        // Couleur noire
+        paint1.setColor(Color.WHITE);
 
         paint2 = new Paint();
         paint2.setAntiAlias(true);
         paint2.setTextSize(textSize);
         paint2.setColor(Color.WHITE);
 
-        // Les contenus des cases
         paint3 = new Paint();
         paint3.setAntiAlias(true);
         paint3.setColor(getResources().getColor(R.color.red));
@@ -78,6 +81,7 @@ public class Grille extends View {
         paint4 = new Paint();
         paint4.setAntiAlias(true);
         paint4.setTextSize(textSize);
+        paint4.setColor(Color.BLACK);
     }
 
     @Override
@@ -88,15 +92,6 @@ public class Grille extends View {
         w = w - (w % 9);
         n = w / 9;
 
-
-        for (int i = 0; i < w; i += n) {
-            for (int j = 0; j < w; j += n) {
-                // TODO add a new paint for fixed items
-                paint1.setStyle(fixIdx[i / n][j / n] ? Paint.Style.FILL : Paint.Style.STROKE);
-                canvas.drawRect(j + n, i + spacing, j + spacing, i + n, paint1);
-            }
-        }
-
         // Dessiner 2 lignes rouges verticales et 2 lignes rouges horizontales
         canvas.drawLine(spacing, n * 3 + (spacing / 2), w, n * 3 + (spacing / 2), paint3);
         canvas.drawLine(spacing, n * 6 + (spacing / 2), w, n * 6 + (spacing / 2), paint3);
@@ -104,6 +99,12 @@ public class Grille extends View {
         canvas.drawLine(n * 3 + (spacing / 2), spacing, n * 3 + (spacing / 2), w, paint3);
         canvas.drawLine(n * 6 + (spacing / 2), spacing, n * 6 + (spacing / 2), w, paint3);
 
+        for (int i = 0; i < w; i += n) {
+            for (int j = 0; j < w; j += n) {
+                canvas.drawRect(j + n, i + spacing, j + spacing, i + n,
+                        fixIdx[i / n][j / n] ? paint : paint1);
+            }
+        }
 
         String s;
         for (int i = 0; i < 9; i++) {

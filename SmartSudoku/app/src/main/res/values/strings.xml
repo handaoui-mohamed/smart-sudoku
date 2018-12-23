@@ -26,4 +26,7 @@
 
     <string name="settings">Paramètres</string>
     <string name="load_new_config">Charger une autre configuration</string>
+    <string name="login">Se connecter</string>
+    <string name="not_loggedin">N\'est pas connecté</string>
+    <string name="logout">Se déconnecter</string>
 </resources>
