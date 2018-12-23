@@ -8,6 +8,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class GameFragment extends Fragment {
@@ -26,11 +27,21 @@ public class GameFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_game, container, false);
         grid = view.findViewById(R.id.sudoku_grid);
         Button confirmBtn = view.findViewById(R.id.confirmBtn);
+        Button reloadBtn = view.findViewById(R.id.reloadBtn);
+        final TextView resultTxt = view.findViewById(R.id.gameResult);
 
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), grid.gagne() ? "You won!" : "You lost!!", Toast.LENGTH_LONG).show();
+                resultTxt.setText(grid.gagne() ? "You won!" : "You lost!!");
+            }
+        });
+
+        reloadBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                resultTxt.setText("");
+                grid.applyNewConfig("672145398145983672389762451263574819958621743714398526597236184426817935831459267");
             }
         });
 

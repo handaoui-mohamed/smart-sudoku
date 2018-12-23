@@ -25,4 +25,5 @@
     </string-array>
 
     <string name="settings">Paramètres</string>
+    <string name="load_new_config">Charger une autre configuration</string>
 </resources>
