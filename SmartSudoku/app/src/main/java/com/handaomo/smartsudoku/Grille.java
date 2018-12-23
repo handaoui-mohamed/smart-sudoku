@@ -65,23 +65,21 @@ public class Grille extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
+        final int SPACING_CONFIG = 5;
+        int spacing = SPACING_CONFIG * 2;
+
         screenWidth = getWidth();
         screenHeight = getHeight();
-        int w = Math.min(screenWidth, screenHeight);
+        int w = Math.min(screenWidth, screenHeight) - spacing;
         w = w - (w % 9);
         n = w / 9;
 
-        int spacing = 10;
 
-        for (int i = 0; i < w; i+=n) {
-            for (int j = 0; j < w; j+=n) {
-                // horizontal
-                canvas.drawLine(j + spacing, i + spacing, j + n, i + spacing, paint1);
-                canvas.drawLine(j + spacing, i + n , j + n, i + n, paint1);
-
-                // vertical
-                canvas.drawLine(j + spacing, i + spacing, j + spacing, i + n, paint1);
-                canvas.drawLine(j + n , i + spacing,  j + n ,i + n, paint1);
+        int maxWidth = (w / n) * n;
+        paint1.setStyle(Paint.Style.STROKE);
+        for (int i = 0; i < maxWidth; i+=n) {
+            for (int j = 0; j < maxWidth; j+=n) {
+                canvas.drawRect(j + n, i + spacing, j + spacing, i + n, paint1);
             }
         }
 
@@ -95,8 +93,7 @@ public class Grille extends View {
         canvas.drawLine(n * 6 + (spacing / 2), spacing, n * 6 + (spacing / 2), w, paint3);
 
 
-        final float textSize = 24f;
-        paint1.setTextSize(textSize);
+        final float textSize = 40f;
         paint2.setTextSize(textSize);
         // Les contenus des cases
         String s;
@@ -104,11 +101,11 @@ public class Grille extends View {
             for (int j = 0; j < 9; j++) {
                 s = "" + (matrix[j][i] == 0 ? "" : matrix[j][i]);
                 if (fixIdx[j][i])
-                    canvas.drawText(s, i * n + (n / 2) - (n / 10) + spacing, j * n
-                            + (n / 2) + (n / 10), paint2);
+                    canvas.drawText(s, i * n + (n / 2) - (n / 10) + spacing / 2, j * n
+                            + (n / 2) + (n / 10) + spacing, paint2);
                 else
-                    canvas.drawText(s, i * n + (n / 2) - (n / 10) + spacing, j * n
-                            + (n / 2) + (n / 10), paint1);
+                    canvas.drawText(s, i * n + (n / 2) - (n / 10) + spacing / 2, j * n
+                            + (n / 2) + (n / 10) + spacing, paint1);
             }
         }
     }
