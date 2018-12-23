@@ -8,7 +8,7 @@
 
     <view
         class="com.handaomo.smartsudoku.Grille"
-        android:id="@+id/note"
+        android:id="@+id/sudoku_grid"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
