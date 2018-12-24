@@ -22,7 +22,7 @@ public class Grille extends View {
     private Paint paint3;   // Pour dessiner les lignes rouges (grosse)
     private Paint paint4;   // Pour le texte noir des cases a modifier
 
-    static boolean initialised = false;
+    public static boolean initialised = false;
     static int[][] matrix = new int[9][9];
     static boolean[][] fixIdx = new boolean[9][9];
     static String config = "000000000000000000000000000000000000000000000000000000000000000000000000000000000";

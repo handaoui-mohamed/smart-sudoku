@@ -7,6 +7,16 @@
     android:paddingTop="10dp"
     tools:context=".Fragments.GameFragment">
 
+    <TextView
+        android:id="@+id/currentUserTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textSize="14sp"
+        android:textColor="@color/white"
+        android:layout_marginBottom="10dp"
+        />
+
     <view
         android:id="@+id/sudoku_grid"
         class="com.handaomo.smartsudoku.Views.Grille"

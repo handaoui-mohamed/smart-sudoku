@@ -5,10 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/white"
     tools:context=".Fragments.ChoiceFragment">
 
     <TextView
-        android:text="Choisissez un nombre"
+        android:textColor="@color/colorAccent"
+        android:text="@string/choose_number"
         android:textSize="24sp"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"

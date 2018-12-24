@@ -41,4 +41,5 @@
     <string name="login_success">Connexion réussie</string>
     <string name="login_failed">Nom d\'utilisateur ou mot de passe incorrect</string>
     <string name="loading_grid">Chargement de la grille</string>
+    <string name="choose_number">Choisissez un nombre</string>
 </resources>

@@ -16,11 +16,14 @@ import com.handaomo.smartsudoku.Services.Api;
 import com.handaomo.smartsudoku.Services.GamePreferences;
 import com.handaomo.smartsudoku.Views.Grille;
 
+import org.w3c.dom.Text;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class GameFragment extends Fragment {
+    static boolean initialised = false;
     private Grille grid;
     private int currentX;
     private int currentY;
@@ -35,12 +38,17 @@ public class GameFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_game, container, false);
+
+        String currentUser = GamePreferences.getInstance().getCurrentUser(getContext());
+        ((TextView)view.findViewById(R.id.currentUserTxt)).setText(currentUser);
+
         grid = view.findViewById(R.id.sudoku_grid);
 
         resultTxt = view.findViewById(R.id.gameResult);
-        if(savedInstanceState == null) {
+        if(!initialised) {
             loadNewConfig();
             resultTxt.setText(getString(R.string.loading_grid));
+            initialised = true;
         }
 
         Button confirmBtn = view.findViewById(R.id.confirmBtn);
