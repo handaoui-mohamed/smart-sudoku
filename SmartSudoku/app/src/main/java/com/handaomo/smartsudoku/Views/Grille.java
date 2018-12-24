@@ -1,22 +1,20 @@
-package com.handaomo.smartsudoku;
+package com.handaomo.smartsudoku.Views;
 
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
+
+import com.handaomo.smartsudoku.R;
 
 public class Grille extends View {
 
     final float textSize = 40f;
-    private int screenWidth;
-    private int screenHeight;
     private int n;
 
-    final int SPACING_CONFIG = 5;
-    int spacing = SPACING_CONFIG * 2;
+    public static int spacing = 5;
 
     private Paint paint;   // Pour dessiner la grille (lignes noires)
     private Paint paint1;   // Pour dessiner la grille (lignes noires)
@@ -86,8 +84,8 @@ public class Grille extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        screenWidth = getWidth();
-        screenHeight = getHeight();
+        int screenWidth = getWidth();
+        int screenHeight = getHeight();
         int w = Math.min(screenWidth, screenHeight) - spacing / 2;
         w = w - (w % 9);
         n = w / 9;

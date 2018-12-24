@@ -5,11 +5,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingTop="10dp"
-    tools:context=".GameFragment">
+    tools:context=".Fragments.GameFragment">
 
     <view
         android:id="@+id/sudoku_grid"
-        class="com.handaomo.smartsudoku.Grille"
+        class="com.handaomo.smartsudoku.Views.Grille"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />

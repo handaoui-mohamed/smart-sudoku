@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainFragment">
+    tools:context=".Fragments.MainFragment">
 
 
 
@@ -29,10 +29,11 @@
             android:textColor="@color/red"/>
 
         <TextView
+            android:id="@+id/currentUserTxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="textEnd"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:textColor="@color/white"
             android:text="@string/not_loggedin"
             />
@@ -61,6 +62,8 @@
     </LinearLayout>
 
     <Button
+        android:background="@color/colorAccent"
+        android:textColor="@color/white"
         android:id="@+id/loginBtn"
         android:layout_width="match_parent"
         android:layout_height="40dp"

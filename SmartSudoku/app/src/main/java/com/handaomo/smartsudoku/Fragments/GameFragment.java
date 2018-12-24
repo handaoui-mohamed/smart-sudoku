@@ -1,4 +1,4 @@
-package com.handaomo.smartsudoku;
+package com.handaomo.smartsudoku.Fragments;
 
 import android.annotation.SuppressLint;
 import android.support.v4.app.Fragment;
@@ -9,7 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.handaomo.smartsudoku.R;
+import com.handaomo.smartsudoku.Services.GamePreferences;
+import com.handaomo.smartsudoku.Views.Grille;
 
 public class GameFragment extends Fragment {
     private Grille grid;
@@ -26,6 +29,7 @@ public class GameFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_game, container, false);
         grid = view.findViewById(R.id.sudoku_grid);
+
         Button confirmBtn = view.findViewById(R.id.confirmBtn);
         Button reloadBtn = view.findViewById(R.id.reloadBtn);
         final TextView resultTxt = view.findViewById(R.id.gameResult);
@@ -80,5 +84,11 @@ public class GameFragment extends Fragment {
 
     public void setSelectedElement(int selectedElement) {
         grid.set(currentX, currentY, selectedElement);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Grille.spacing = GamePreferences.getInstance().getGridSpacing(getContext());
     }
 }

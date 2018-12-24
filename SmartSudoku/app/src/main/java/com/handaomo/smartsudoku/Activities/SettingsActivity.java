@@ -1,8 +1,11 @@
-package com.handaomo.smartsudoku;
+package com.handaomo.smartsudoku.Activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+
+import com.handaomo.smartsudoku.R;
+import com.handaomo.smartsudoku.Fragments.SettingsFragment;
 
 public class SettingsActivity extends AppCompatActivity {
 

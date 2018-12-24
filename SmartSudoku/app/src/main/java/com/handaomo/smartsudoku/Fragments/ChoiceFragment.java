@@ -1,4 +1,4 @@
-package com.handaomo.smartsudoku;
+package com.handaomo.smartsudoku.Fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+
+import com.handaomo.smartsudoku.R;
 
 public class ChoiceFragment extends ListFragment implements AdapterView.OnItemClickListener {
     GameFragment gameFragment;

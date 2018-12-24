@@ -1,4 +1,4 @@
-package com.handaomo.smartsudoku;
+package com.handaomo.smartsudoku.Activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
+
+import com.handaomo.smartsudoku.Fragments.MainFragment;
+import com.handaomo.smartsudoku.R;
 
 public class MainActivity extends AppCompatActivity {
 

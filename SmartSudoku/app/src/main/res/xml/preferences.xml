@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <SwitchPreference
-        android:defaultValue="true"
-        android:title="Settings option"
-        android:key="example_switch"
-        android:summary="Turn this option on or off" />
+    <ListPreference
+        android:selectable="true"
+        android:entryValues="@array/spacing_values"
+        android:entries="@array/spacing_values"
+        android:defaultValue="5"
+        android:title="Taille case"
+        android:key="spacing"
+        android:summary="La taille sélectionnée est : %s" />
+
+    <Preference
+        android:title="A propos"
+        android:summary="Dévelopé par Handaoui Mohamed"/>
 </PreferenceScreen>

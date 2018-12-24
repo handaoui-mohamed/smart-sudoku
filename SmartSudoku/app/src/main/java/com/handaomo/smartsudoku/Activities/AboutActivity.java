@@ -1,8 +1,10 @@
-package com.handaomo.smartsudoku;
+package com.handaomo.smartsudoku.Activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+
+import com.handaomo.smartsudoku.R;
 
 public class AboutActivity extends AppCompatActivity {
 
