@@ -10,14 +10,21 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.handaomo.smartsudoku.DTO.GridDto;
 import com.handaomo.smartsudoku.R;
+import com.handaomo.smartsudoku.Services.Api;
 import com.handaomo.smartsudoku.Services.GamePreferences;
 import com.handaomo.smartsudoku.Views.Grille;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class GameFragment extends Fragment {
     private Grille grid;
     private int currentX;
     private int currentY;
+    TextView resultTxt;
 
     public GameFragment() {
 
@@ -30,9 +37,14 @@ public class GameFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_game, container, false);
         grid = view.findViewById(R.id.sudoku_grid);
 
+        resultTxt = view.findViewById(R.id.gameResult);
+        if(savedInstanceState == null) {
+            loadNewConfig();
+            resultTxt.setText(getString(R.string.loading_grid));
+        }
+
         Button confirmBtn = view.findViewById(R.id.confirmBtn);
         Button reloadBtn = view.findViewById(R.id.reloadBtn);
-        final TextView resultTxt = view.findViewById(R.id.gameResult);
 
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,8 +56,7 @@ public class GameFragment extends Fragment {
         reloadBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                resultTxt.setText("");
-                grid.applyNewConfig("672145398145983672389762451263574819958621743714398526597236184426817935831459267");
+                loadNewConfig();
             }
         });
 
@@ -80,6 +91,21 @@ public class GameFragment extends Fragment {
         });
 
         return view;
+    }
+
+    public void loadNewConfig(){
+        Api.gridService.getRandomGrid().enqueue(new Callback<GridDto>() {
+            @Override
+            public void onResponse(Call<GridDto> call, Response<GridDto> response) {
+                resultTxt.setText("");
+                grid.applyNewConfig(response.body().configuration);
+            }
+
+            @Override
+            public void onFailure(Call<GridDto> call, Throwable t) {
+
+            }
+        });
     }
 
     public void setSelectedElement(int selectedElement) {

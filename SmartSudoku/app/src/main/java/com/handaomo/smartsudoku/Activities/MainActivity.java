@@ -9,6 +9,7 @@ import android.view.MenuItem;
 
 import com.handaomo.smartsudoku.Fragments.MainFragment;
 import com.handaomo.smartsudoku.R;
+import com.handaomo.smartsudoku.Services.Api;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,6 +20,8 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        Api.init();
 
         getSupportFragmentManager()
                 .beginTransaction()

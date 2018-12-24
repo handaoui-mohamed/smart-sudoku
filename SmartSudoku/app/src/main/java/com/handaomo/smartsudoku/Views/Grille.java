@@ -25,7 +25,7 @@ public class Grille extends View {
     static boolean initialised = false;
     static int[][] matrix = new int[9][9];
     static boolean[][] fixIdx = new boolean[9][9];
-    static String config = "000105000140000670080002400063070010900000003010090520007200080026000035000409000";
+    static String config = "000000000000000000000000000000000000000000000000000000000000000000000000000000000";
 
     public Grille(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);

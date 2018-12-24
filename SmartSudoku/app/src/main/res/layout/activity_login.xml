@@ -37,7 +37,7 @@
         </LinearLayout>
 
         <EditText
-            android:paddingLeft="5dp"
+            android:paddingStart="5dp"
             app:backgroundTint="@color/colorAccent"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
@@ -52,7 +52,7 @@
             android:inputType="text"/>
 
         <EditText
-            android:paddingLeft="5dp"
+            android:paddingStart="5dp"
             app:backgroundTint="@color/colorAccent"
             android:textColor="@color/white"
             android:textColorHighlight="@color/white"
@@ -66,6 +66,14 @@
             android:layout_marginBottom="15dp"
             android:hint="@string/password"
             android:inputType="textPassword"/>
+
+        <TextView
+            android:id="@+id/responseTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text=""
+            android:textAlignment="center"/>
 
         <Button
             android:id="@+id/loginBtn"
