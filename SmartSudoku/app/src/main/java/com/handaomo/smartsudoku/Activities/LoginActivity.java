@@ -24,14 +24,15 @@ import retrofit2.Response;
 public class LoginActivity extends AppCompatActivity {
     Context context;
     TextView responseTxt;
+    Button loginBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         context = this;
-        Button loginBtn = findViewById(R.id.loginBtn);
         Button registerBtn = findViewById(R.id.registerBtn);
+        loginBtn = findViewById(R.id.loginBtn);
         responseTxt = findViewById(R.id.responseTxt);
         responseTxt.setText("");
 
@@ -57,6 +58,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void tryToLogin(String username, String password) {
+        responseTxt.setText(getString(R.string.logging_in));
+        loginBtn.setEnabled(false);
         Api.userService.login(new UserDto("handaoui", "password")).enqueue(new Callback<UserDto>() {
             @Override
             public void onResponse(Call<UserDto> call, Response<UserDto> response) {
@@ -69,6 +72,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<UserDto> call, Throwable t) {
+                loginBtn.setEnabled(true);
                 responseTxt.setText(getString(R.string.login_failed));
                 responseTxt.setTextColor(getResources().getColor(R.color.red));
             }

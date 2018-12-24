@@ -42,4 +42,5 @@
     <string name="login_failed">Nom d\'utilisateur ou mot de passe incorrect</string>
     <string name="loading_grid">Chargement de la grille</string>
     <string name="choose_number">Choisissez un nombre</string>
+    <string name="logging_in">Connexion en cours</string>
 </resources>
