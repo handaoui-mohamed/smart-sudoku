@@ -20,7 +20,12 @@
         <activity
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
             android:name=".Activities.SettingsActivity"
-            android:label="@string/title_activity_settings"></activity>
+            android:label="@string/title_activity_settings"/>
+
+        <activity
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
+            android:name=".Activities.LoginActivity"
+            android:label="@string/login"/>
     </application>
 
 </manifest>

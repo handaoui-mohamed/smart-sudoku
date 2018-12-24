@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.handaomo.smartsudoku.Activities.AboutActivity;
-import com.handaomo.smartsudoku.Fragments.GameFragment;
+import com.handaomo.smartsudoku.Activities.LoginActivity;
 import com.handaomo.smartsudoku.R;
 import com.handaomo.smartsudoku.Services.GamePreferences;
 
@@ -35,6 +34,23 @@ public class MainFragment extends Fragment {
         loginBtn = view.findViewById(R.id.loginBtn);
         logoutBtn = view.findViewById(R.id.logoutBtn);
         currentUserTxt = view.findViewById(R.id.currentUserTxt);
+
+        logoutBtn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                GamePreferences.getInstance().removeCurrentUser(context);
+                loginBtn.setVisibility(View.VISIBLE);
+                playBtn.setVisibility(View.GONE);
+                logoutBtn.setVisibility(View.GONE);
+                currentUserTxt.setText(getString(R.string.not_loggedin));
+            }
+        });
+
+        loginBtn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent loginIntent = new Intent(context, LoginActivity.class);
+                startActivity(loginIntent);
+            }
+        });
 
         playBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -69,7 +85,7 @@ public class MainFragment extends Fragment {
             loginBtn.setVisibility(View.GONE);
             playBtn.setVisibility(View.VISIBLE);
             logoutBtn.setVisibility(View.VISIBLE);
-            currentUserTxt.setText("Utilisateur : "+currentUser);
+            currentUserTxt.setText(currentUser);
         }
     }
 }

@@ -35,4 +35,7 @@
     <string name="login">Se connecter</string>
     <string name="not_loggedin">N\'est pas connecté</string>
     <string name="logout">Se déconnecter</string>
+    <string name="username">Nom d\'utilisateur</string>
+    <string name="password">Mot de passe</string>
+    <string name="register">Creer un compte</string>
 </resources>

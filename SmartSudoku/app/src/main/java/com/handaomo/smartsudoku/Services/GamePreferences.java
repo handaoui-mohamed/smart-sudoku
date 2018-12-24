@@ -23,7 +23,7 @@ public class GamePreferences {
     public String getCurrentUser(Context context){
         return PreferenceManager
                 .getDefaultSharedPreferences(context)
-                .getString("fullName", "");
+                .getString("fullName", "Handaoui Mohamed");
     }
 
     public boolean isUserConnected(Context context){
@@ -41,5 +41,12 @@ public class GamePreferences {
         return Integer.parseInt(PreferenceManager
                 .getDefaultSharedPreferences(context)
                 .getString("spacing", "5")) * 2;
+    }
+
+    public void removeCurrentUser(Context context) {
+        PreferenceManager
+                .getDefaultSharedPreferences(context).edit()
+                .putString("fullName", "")
+                .apply();
     }
 }
