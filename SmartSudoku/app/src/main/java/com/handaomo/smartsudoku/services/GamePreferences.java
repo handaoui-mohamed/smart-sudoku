@@ -26,17 +26,6 @@ public class GamePreferences {
                 .getString("fullName", "");
     }
 
-    public boolean isUserConnected(Context context){
-        return getCurrentUser(context).equals("");
-    }
-
-    public void setGridSpacing(Context context, int spacing){
-        PreferenceManager
-                .getDefaultSharedPreferences(context).edit()
-                .putInt("spacing", spacing)
-                .apply();
-    }
-
     public int getGridSpacing(Context context){
         return Integer.parseInt(PreferenceManager
                 .getDefaultSharedPreferences(context)

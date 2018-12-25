@@ -61,25 +61,31 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void tryToLogin(String username, String password) {
+        responseTxt.setTextColor(getResources().getColor(R.color.white));
         responseTxt.setText(getString(R.string.logging_in));
+
         loginBtn.setEnabled(false);
+
         Api.userService.login(new UserDto(username, password)).enqueue(new Callback<UserDto>() {
             @Override
             public void onResponse(Call<UserDto> call, Response<UserDto> response) {
-                UserDto user = response.body();
-                GamePreferences.getInstance().setCurrentUser(context, user.first_name + " " + user.last_name);
-                responseTxt.setText(getString(R.string.login_success));
-                responseTxt.setTextColor(getResources().getColor(R.color.colorAccent));
+                if (response.isSuccessful()) {
+                    UserDto user = response.body();
+                    GamePreferences.getInstance().setCurrentUser(context, user.first_name + " " + user.last_name);
+                    responseTxt.setText(getString(R.string.login_success));
+                    responseTxt.setTextColor(getResources().getColor(R.color.colorAccent));
 
-                setResult(Activity.RESULT_OK);
-                finish();
+                    setResult(Activity.RESULT_OK);
+                    finish();
+                } else {
+                    loginBtn.setEnabled(true);
+                    responseTxt.setText(getString(R.string.login_failed));
+                    responseTxt.setTextColor(getResources().getColor(R.color.red));
+                }
             }
 
             @Override
             public void onFailure(Call<UserDto> call, Throwable t) {
-                loginBtn.setEnabled(true);
-                responseTxt.setText(getString(R.string.login_failed));
-                responseTxt.setTextColor(getResources().getColor(R.color.red));
             }
         });
     }
