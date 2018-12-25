@@ -13,7 +13,7 @@
         android:inputType="number"
         android:key="default_timer"
         android:title="Temps d'une partie (minutes)"
-        android:summary="Le temps choisi d'une partie est : %d"
+        android:summary="La durée d'une partie de sudoku"
         android:defaultValue="30"
         android:dialogTitle="Temps d'une partie (minutes)" />
 

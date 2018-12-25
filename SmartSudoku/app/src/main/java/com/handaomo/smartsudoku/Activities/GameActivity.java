@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.handaomo.smartsudoku.services.Api;
 import com.handaomo.smartsudoku.services.GamePreferences;
@@ -147,7 +148,6 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void confirmSolution(View view) {
-        saveGame();
         countDownTimer.cancel();
         gameOver = true;
         resultTxt.setText(grid.gagne() ? getString(R.string.you_won) : getString(R.string.you_lost));
@@ -213,18 +213,33 @@ public class GameActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_game, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
-        if (id == R.id.settings) {
-            Intent settingsIntent = new Intent(this, SettingsActivity.class);
-            startActivity(settingsIntent);
-            return true;
+        switch (id) {
+            case R.id.settings:
+                Intent settingsIntent = new Intent(this, SettingsActivity.class);
+                startActivity(settingsIntent);
+                return true;
+            case R.id.newGameOptionBtn:
+                loadNewConfig();
+                Toast.makeText(this, "Nouvelle partie chargée", Toast.LENGTH_LONG).show();
+                return true;
+            case R.id.saveOptionBtn:
+                saveGame();
+                Toast.makeText(this, "Partie sauvegardée", Toast.LENGTH_LONG).show();
+                return true;
+            case R.id.loadOptionBtn:
+                loadSavedConfig();
+                newGame = false;
+                startNewCountDownTimer();
+                newGame = true;
+                Toast.makeText(this, "Partie chargée", Toast.LENGTH_LONG).show();
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
