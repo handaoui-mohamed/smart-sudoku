@@ -82,11 +82,13 @@ public class GameActivity extends AppCompatActivity {
 
                     case MotionEvent.ACTION_UP:
                         if (gameOver) return false;
-                        // TODO: check if the click is in the grid
                         currentX = (int) event.getX();
                         currentY = (int) event.getY();
-                        if (!grid.isNotFix(currentX, currentY)) performClick();
-                        return true;
+                        if (!grid.isNotFix(currentX, currentY)) {
+                            performClick();
+                            return true;
+                        }
+                        return false;
                 }
                 return false;
             }
@@ -132,7 +134,7 @@ public class GameActivity extends AppCompatActivity {
                     fixIdx[i][j] = config[1].charAt((i * 9) + j) == '0';
 
             grid.applyNewConfig(config[0], fixIdx);
-        }else{
+        } else {
             loadNewGame(null);
         }
     }
@@ -148,7 +150,7 @@ public class GameActivity extends AppCompatActivity {
         saveGame();
         countDownTimer.cancel();
         gameOver = true;
-        resultTxt.setText(grid.gagne() ? "You won!" : "You lost!!");
+        resultTxt.setText(grid.gagne() ? getString(R.string.you_won) : getString(R.string.you_lost));
     }
 
     public void loadNewConfig() {
@@ -185,7 +187,7 @@ public class GameActivity extends AppCompatActivity {
 
             public void onFinish() {
                 gameOver = true;
-                resultTxt.setText(grid.gagne() ? "You won!" : "You lost!!");
+                resultTxt.setText(grid.gagne() ? getString(R.string.you_won) : getString(R.string.you_lost));
             }
         };
         countDownTimer.start();

@@ -17,27 +17,27 @@ public class GamePreferences {
     public void setCurrentUser(Context context, String fullName) {
         PreferenceManager
                 .getDefaultSharedPreferences(context).edit()
-                .putString("fullName", fullName)
+                .putString("full_name", fullName)
                 .apply();
     }
 
     public String getCurrentUser(Context context) {
         return PreferenceManager
                 .getDefaultSharedPreferences(context)
-                .getString("fullName", "");
+                .getString("full_name", "");
+    }
+
+    public void removeCurrentUser(Context context) {
+        PreferenceManager
+                .getDefaultSharedPreferences(context).edit()
+                .putString("full_name", "")
+                .apply();
     }
 
     public int getGridSpacing(Context context) {
         return Integer.parseInt(PreferenceManager
                 .getDefaultSharedPreferences(context)
                 .getString("spacing", "5")) * 2;
-    }
-
-    public void removeCurrentUser(Context context) {
-        PreferenceManager
-                .getDefaultSharedPreferences(context).edit()
-                .putString("fullName", "")
-                .apply();
     }
 
     public String getSavedGame(Context context) {

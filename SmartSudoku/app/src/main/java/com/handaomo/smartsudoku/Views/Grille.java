@@ -12,7 +12,7 @@ import com.handaomo.smartsudoku.R;
 public class Grille extends View {
 
     final float textSize = 40f;
-    private int n;
+    private int n, w;
 
     public int spacing = 5;
 
@@ -81,7 +81,7 @@ public class Grille extends View {
     protected void onDraw(Canvas canvas) {
         int screenWidth = getWidth();
         int screenHeight = getHeight();
-        int w = Math.min(screenWidth, screenHeight) - spacing / 2;
+        w = Math.min(screenWidth, screenHeight) - spacing / 2;
         w = w - (w % 9);
         n = w / 9;
 
@@ -158,6 +158,9 @@ public class Grille extends View {
     }
 
     public boolean isNotFix(int x, int y) {
+        int idy = getYFromMatrix(y);
+        int idx = getXFromMatrix(x);
+        if(idx > 8 || idy > 8) return true;
         return fixIdx[getYFromMatrix(y)][getXFromMatrix(x)];
     }
 
