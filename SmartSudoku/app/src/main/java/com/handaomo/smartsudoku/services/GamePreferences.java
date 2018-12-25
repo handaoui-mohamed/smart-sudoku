@@ -56,12 +56,13 @@ public class GamePreferences {
 
     public long getCountDownTime(Context context, boolean newGame) {
         if (newGame) {
-            return Integer.parseInt(PreferenceManager
+            return Long.parseLong(PreferenceManager
                     .getDefaultSharedPreferences(context)
                     .getString("default_timer", "30")) * 60 * 1000;
-        } else
-            return Integer.parseInt(PreferenceManager
+        }
+
+        return Long.parseLong(PreferenceManager
                     .getDefaultSharedPreferences(context)
-                    .getString("default_timer", "60000"));
+                    .getString("saved_timer", "60000"));
     }
 }

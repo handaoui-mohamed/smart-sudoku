@@ -65,6 +65,7 @@ public class GameActivity extends AppCompatActivity {
             else loadSavedConfig();
 
             startNewCountDownTimer();
+            newGame = true;
         }
 
         setGridTouchListener();
@@ -117,7 +118,6 @@ public class GameActivity extends AppCompatActivity {
 
     private void loadSavedConfig() {
         String game = gamePreferences.getSavedGame(this);
-        newGame = true;
 
         if (!game.equals("")) {
             gameOver = false;
