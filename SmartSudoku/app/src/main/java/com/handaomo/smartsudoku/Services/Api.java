@@ -1,5 +1,7 @@
 package com.handaomo.smartsudoku.Services;
 
+import com.handaomo.smartsudoku.Config;
+
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -11,7 +13,7 @@ public class Api {
 
     static public void init(){
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://smart-sudoku.herokuapp.com/api/")
+                .baseUrl(Config.apiBaseURL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

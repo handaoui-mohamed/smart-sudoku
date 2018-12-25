@@ -17,7 +17,7 @@ public class ChoiceFragment extends ListFragment implements AdapterView.OnItemCl
     }
 
 
-    public void setParentFragement(GameFragment gameFragment) {
+    public void setParentFragment(GameFragment gameFragment) {
         this.gameFragment = gameFragment;
     }
 

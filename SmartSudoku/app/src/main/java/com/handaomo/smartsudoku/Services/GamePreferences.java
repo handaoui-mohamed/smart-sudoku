@@ -23,7 +23,7 @@ public class GamePreferences {
     public String getCurrentUser(Context context){
         return PreferenceManager
                 .getDefaultSharedPreferences(context)
-                .getString("fullName", "Handaoui Mohamed");
+                .getString("fullName", "");
     }
 
     public boolean isUserConnected(Context context){
@@ -47,6 +47,19 @@ public class GamePreferences {
         PreferenceManager
                 .getDefaultSharedPreferences(context).edit()
                 .putString("fullName", "")
+                .apply();
+    }
+
+    public String getSavedGame(Context context) {
+        return PreferenceManager
+                .getDefaultSharedPreferences(context)
+                .getString("savedGame", "");
+    }
+
+    public void saveGame(Context context, String config, String timer) {
+        PreferenceManager
+                .getDefaultSharedPreferences(context).edit()
+                .putString("savedGame", config+":"+timer)
                 .apply();
     }
 }

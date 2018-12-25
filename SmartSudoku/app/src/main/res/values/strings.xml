@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Smart SuDoKu</string>
-    <string name="play">Jouer</string>
+    <string name="play">Nouvelle partie</string>
+    <string name="load">Charger une partie</string>
     <string name="about">A propos</string>
     <string name="go_back">Retour</string>
     <string name="confirm">Valider</string>

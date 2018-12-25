@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.handaomo.smartsudoku.Config;
 import com.handaomo.smartsudoku.DTO.UserDto;
 import com.handaomo.smartsudoku.R;
 import com.handaomo.smartsudoku.Services.Api;
@@ -49,7 +50,7 @@ public class LoginActivity extends AppCompatActivity {
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://smart-sudoku.herokuapp.com/register"));
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(Config.registerURL));
                 startActivity(browserIntent);
             }
         });

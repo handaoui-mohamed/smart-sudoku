@@ -16,8 +16,6 @@ import com.handaomo.smartsudoku.Services.Api;
 import com.handaomo.smartsudoku.Services.GamePreferences;
 import com.handaomo.smartsudoku.Views.Grille;
 
-import org.w3c.dom.Text;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -43,10 +41,16 @@ public class GameFragment extends Fragment {
         ((TextView)view.findViewById(R.id.currentUserTxt)).setText(currentUser);
 
         grid = view.findViewById(R.id.sudoku_grid);
-
         resultTxt = view.findViewById(R.id.gameResult);
+
+
         if(!initialised) {
-            loadNewConfig();
+            Bundle bundle = getArguments();
+            if(bundle.getBoolean("new_game", false)){
+                loadSavedConfig();
+            }else {
+                loadNewConfig();
+            }
             resultTxt.setText(getString(R.string.loading_grid));
             initialised = true;
         }
@@ -89,7 +93,7 @@ public class GameFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putInt("selected", grid.getElementFromMatrix(currentX, currentY));
                 ChoiceFragment choiceFragment = new ChoiceFragment();
-                choiceFragment.setParentFragement(GameFragment.this);
+                choiceFragment.setParentFragment(GameFragment.this);
                 getFragmentManager()
                         .beginTransaction()
                         .replace(R.id.fragment_container, choiceFragment)
@@ -99,6 +103,17 @@ public class GameFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private void loadSavedConfig() {
+        String game = GamePreferences.getInstance().getSavedGame(getContext());
+        if(!game.equals("")){
+            String params[] = game.split(":");
+
+            resultTxt.setText("");
+            grid.applyNewConfig(params[0]);
+//            grid.applyTimer(params[1]);
+        }
     }
 
     public void loadNewConfig(){
