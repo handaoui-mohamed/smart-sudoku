@@ -136,11 +136,11 @@ public class GameActivity extends AppCompatActivity {
 
             grid.applyNewConfig(config[0], fixIdx);
         } else {
-            loadNewGame(null);
+            loadNewGame();
         }
     }
 
-    public void loadNewGame(View view) {
+    public void loadNewGame() {
         gameOver = false;
         loadNewConfig();
         // restart countdown timer
