@@ -1,4 +1,4 @@
-package com.handaomo.smartsudoku.Fragments;
+package com.handaomo.smartsudoku.fragments;
 
 import android.os.Bundle;
 import android.support.v7.preference.PreferenceFragmentCompat;

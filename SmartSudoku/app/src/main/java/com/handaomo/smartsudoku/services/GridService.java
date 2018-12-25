@@ -1,6 +1,6 @@
-package com.handaomo.smartsudoku.ApiServices;
+package com.handaomo.smartsudoku.services;
 
-import com.handaomo.smartsudoku.DTO.GridDto;
+import com.handaomo.smartsudoku.dtos.GridDto;
 import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.GET;

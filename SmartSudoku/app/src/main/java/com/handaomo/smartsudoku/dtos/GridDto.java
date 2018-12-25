@@ -1,4 +1,4 @@
-package com.handaomo.smartsudoku.DTO;
+package com.handaomo.smartsudoku.dtos;
 
 public class GridDto {
     public String configuration;

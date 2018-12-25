@@ -4,10 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingTop="10dp"
-    tools:context=".Fragments.GameFragment">
+    android:background="@color/background"
+    tools:context=".activities.GameActivity">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
 
     <LinearLayout
+        android:paddingTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -46,7 +51,7 @@
 
     <view
         android:id="@+id/sudoku_grid"
-        class="com.handaomo.smartsudoku.Views.Grille"
+        class="com.handaomo.smartsudoku.views.Grille"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_weight="1" />
@@ -60,6 +65,7 @@
         android:layout_height="wrap_content" />
 
     <Button
+        android:onClick="confirmSolution"
         android:id="@+id/confirmBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -69,6 +75,7 @@
         android:text="@string/confirm" />
 
     <Button
+        android:onClick="loadNewGame"
         android:id="@+id/reloadBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

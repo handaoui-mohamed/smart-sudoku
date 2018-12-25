@@ -1,4 +1,4 @@
-package com.handaomo.smartsudoku.ApiServices;
+package com.handaomo.smartsudoku.services;
 
 import com.handaomo.smartsudoku.Config;
 

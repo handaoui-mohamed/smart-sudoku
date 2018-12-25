@@ -1,6 +1,7 @@
-package com.handaomo.smartsudoku.Activities;
+package com.handaomo.smartsudoku.activities;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -13,10 +14,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.handaomo.smartsudoku.Config;
-import com.handaomo.smartsudoku.DTO.UserDto;
+import com.handaomo.smartsudoku.dtos.UserDto;
 import com.handaomo.smartsudoku.R;
-import com.handaomo.smartsudoku.ApiServices.Api;
-import com.handaomo.smartsudoku.ApiServices.GamePreferences;
+import com.handaomo.smartsudoku.services.Api;
+import com.handaomo.smartsudoku.services.GamePreferences;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -32,11 +33,11 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         context = this;
-        Button registerBtn = findViewById(R.id.registerBtn);
-        loginBtn = findViewById(R.id.loginBtn);
+
         responseTxt = findViewById(R.id.responseTxt);
         responseTxt.setText("");
 
+        loginBtn = findViewById(R.id.loginBtn);
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,6 +48,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        Button registerBtn = findViewById(R.id.registerBtn);
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,13 +63,15 @@ public class LoginActivity extends AppCompatActivity {
     private void tryToLogin(String username, String password) {
         responseTxt.setText(getString(R.string.logging_in));
         loginBtn.setEnabled(false);
-        Api.userService.login(new UserDto("handaoui", "password")).enqueue(new Callback<UserDto>() {
+        Api.userService.login(new UserDto(username, password)).enqueue(new Callback<UserDto>() {
             @Override
             public void onResponse(Call<UserDto> call, Response<UserDto> response) {
                 UserDto user = response.body();
-                GamePreferences.getInstance().setCurrentUser(context, user.first_name + " "+user.last_name );
+                GamePreferences.getInstance().setCurrentUser(context, user.first_name + " " + user.last_name);
                 responseTxt.setText(getString(R.string.login_success));
                 responseTxt.setTextColor(getResources().getColor(R.color.colorAccent));
+
+                setResult(Activity.RESULT_OK);
                 finish();
             }
 

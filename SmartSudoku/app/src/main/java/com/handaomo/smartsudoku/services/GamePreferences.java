@@ -1,4 +1,4 @@
-package com.handaomo.smartsudoku.ApiServices;
+package com.handaomo.smartsudoku.services;
 
 import android.content.Context;
 import android.support.v7.preference.PreferenceManager;

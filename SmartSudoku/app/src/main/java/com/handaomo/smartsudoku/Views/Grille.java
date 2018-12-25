@@ -1,4 +1,4 @@
-package com.handaomo.smartsudoku.Views;
+package com.handaomo.smartsudoku.views;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -14,7 +14,7 @@ public class Grille extends View {
     final float textSize = 40f;
     private int n;
 
-    public static int spacing = 5;
+    public int spacing = 5;
 
     private Paint paint;   // Pour dessiner la grille (lignes noires)
     private Paint paint1;   // Pour dessiner la grille (lignes noires)
@@ -22,10 +22,9 @@ public class Grille extends View {
     private Paint paint3;   // Pour dessiner les lignes rouges (grosse)
     private Paint paint4;   // Pour le texte noir des cases a modifier
 
-    public static boolean initialised = false;
-    static int[][] matrix = new int[9][9];
-    static boolean[][] fixIdx = new boolean[9][9];
-    static String config = "000000000000000000000000000000000000000000000000000000000000000000000000000000000";
+    int[][] matrix = new int[9][9];
+    boolean[][] fixIdx = new boolean[9][9];
+    String config = "000000000000000000000000000000000000000000000000000000000000000000000000000000000";
 
     public Grille(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -45,17 +44,13 @@ public class Grille extends View {
     public void init() {
         setWillNotDraw(false);
         //Grille de depart
-        if (!initialised) {
-            set(config);
+        set(config);
 
-            // Grille Gagnante
-            // set("672145398145983672389762451263574819958621743714398526597236184426817935831459267");
+        // Grille Gagnante
+        // set("672145398145983672389762451263574819958621743714398526597236184426817935831459267");
 
-            // Grille Perdante
-            // set("672145198145983672389762451263574819958621743714398526597236184426817935831459267");
-
-            initialised = true;
-        }
+        // Grille Perdante
+        // set("672145198145983672389762451263574819958621743714398526597236184426817935831459267");
 
         paint = new Paint();
         paint.setAntiAlias(true);
@@ -188,9 +183,12 @@ public class Grille extends View {
     }
 
     public void applyNewConfig(String newConfig) {
-        Grille.config = newConfig;
-        Grille.initialised = false;
+        config = newConfig;
         init();
         invalidate();
+    }
+
+    public void setSpacing(int spacing) {
+        this.spacing = spacing;
     }
 }

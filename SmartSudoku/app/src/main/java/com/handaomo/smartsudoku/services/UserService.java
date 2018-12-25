@@ -1,6 +1,6 @@
-package com.handaomo.smartsudoku.ApiServices;
+package com.handaomo.smartsudoku.services;
 
-import com.handaomo.smartsudoku.DTO.UserDto;
+import com.handaomo.smartsudoku.dtos.UserDto;
 
 import retrofit2.Call;
 import retrofit2.http.Body;

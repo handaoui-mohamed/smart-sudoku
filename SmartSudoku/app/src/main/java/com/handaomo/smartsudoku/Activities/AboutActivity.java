@@ -1,4 +1,4 @@
-package com.handaomo.smartsudoku.Activities;
+package com.handaomo.smartsudoku.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,7 +14,7 @@ public class AboutActivity extends AppCompatActivity {
         setContentView(R.layout.activity_about);
     }
 
-    public void goBack(View view){
+    public void goBack(View view) {
         finish();
     }
 }
