@@ -1,4 +1,4 @@
-package com.handaomo.smartsudoku.Services;
+package com.handaomo.smartsudoku.ApiServices;
 
 import android.content.Context;
 import android.support.v7.preference.PreferenceManager;
@@ -53,13 +53,20 @@ public class GamePreferences {
     public String getSavedGame(Context context) {
         return PreferenceManager
                 .getDefaultSharedPreferences(context)
-                .getString("savedGame", "");
+                .getString("saved_config", "");
     }
 
-    public void saveGame(Context context, String config, String timer) {
+    public void saveGame(Context context, String config, long timer) {
         PreferenceManager
                 .getDefaultSharedPreferences(context).edit()
-                .putString("savedGame", config+":"+timer)
+                .putString("saved_config", config)
+                .putLong("saved_timer", timer / 60 / 1000)
                 .apply();
+    }
+
+    public long getCountDownTime(Context context, boolean newGame) {
+        return Integer.parseInt(PreferenceManager
+                .getDefaultSharedPreferences(context)
+                .getString(newGame ? "default_timer" : "saved_timer", "30")) * 60 * 1000;
     }
 }

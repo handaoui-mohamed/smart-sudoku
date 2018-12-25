@@ -9,6 +9,14 @@
         android:key="spacing"
         android:summary="La taille sélectionnée est : %s" />
 
+    <EditTextPreference
+        android:inputType="number"
+        android:key="default_timer"
+        android:title="Temps d'une partie (minutes)"
+        android:summary="Le temps choisi d'une partie est : %d"
+        android:defaultValue="30"
+        android:dialogTitle="Temps d'une partie (minutes)" />
+
     <Preference
         android:title="A propos"
         android:summary="Dévelopé par Handaoui Mohamed"/>

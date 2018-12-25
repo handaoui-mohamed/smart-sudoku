@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.handaomo.smartsudoku.Activities.AboutActivity;
 import com.handaomo.smartsudoku.Activities.LoginActivity;
 import com.handaomo.smartsudoku.R;
-import com.handaomo.smartsudoku.Services.GamePreferences;
+import com.handaomo.smartsudoku.ApiServices.GamePreferences;
 
 public class MainFragment extends Fragment {
     private Context context;

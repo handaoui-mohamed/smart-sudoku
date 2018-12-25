@@ -15,8 +15,8 @@ import android.widget.TextView;
 import com.handaomo.smartsudoku.Config;
 import com.handaomo.smartsudoku.DTO.UserDto;
 import com.handaomo.smartsudoku.R;
-import com.handaomo.smartsudoku.Services.Api;
-import com.handaomo.smartsudoku.Services.GamePreferences;
+import com.handaomo.smartsudoku.ApiServices.Api;
+import com.handaomo.smartsudoku.ApiServices.GamePreferences;
 
 import retrofit2.Call;
 import retrofit2.Callback;

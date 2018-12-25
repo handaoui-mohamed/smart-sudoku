@@ -9,7 +9,7 @@ import android.view.MenuItem;
 
 import com.handaomo.smartsudoku.Fragments.MainFragment;
 import com.handaomo.smartsudoku.R;
-import com.handaomo.smartsudoku.Services.Api;
+import com.handaomo.smartsudoku.ApiServices.Api;
 
 public class MainActivity extends AppCompatActivity {
 

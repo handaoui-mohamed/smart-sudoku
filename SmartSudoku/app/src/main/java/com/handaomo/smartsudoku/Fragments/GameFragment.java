@@ -1,8 +1,13 @@
 package com.handaomo.smartsudoku.Fragments;
 
 import android.annotation.SuppressLint;
-import android.support.v4.app.Fragment;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -10,10 +15,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.handaomo.smartsudoku.ApiServices.Api;
+import com.handaomo.smartsudoku.ApiServices.GamePreferences;
 import com.handaomo.smartsudoku.DTO.GridDto;
 import com.handaomo.smartsudoku.R;
-import com.handaomo.smartsudoku.Services.Api;
-import com.handaomo.smartsudoku.Services.GamePreferences;
 import com.handaomo.smartsudoku.Views.Grille;
 
 import retrofit2.Call;
@@ -25,7 +30,10 @@ public class GameFragment extends Fragment {
     private Grille grid;
     private int currentX;
     private int currentY;
-    TextView resultTxt;
+    private TextView resultTxt, timerTxt;
+    private boolean newGame = true;
+    CountDownTimer countDownTimer;
+    GamePreferences gamePreferences;
 
     public GameFragment() {
 
@@ -36,21 +44,24 @@ public class GameFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_game, container, false);
+        gamePreferences = GamePreferences.getInstance();
 
-        String currentUser = GamePreferences.getInstance().getCurrentUser(getContext());
-        ((TextView)view.findViewById(R.id.currentUserTxt)).setText(currentUser);
+        String currentUser = gamePreferences.getCurrentUser(getContext());
+        ((TextView) view.findViewById(R.id.currentUserTxt)).setText(currentUser);
 
         grid = view.findViewById(R.id.sudoku_grid);
         resultTxt = view.findViewById(R.id.gameResult);
+        timerTxt = view.findViewById(R.id.timerTxt);
 
 
-        if(!initialised) {
-            Bundle bundle = getArguments();
-            if(bundle.getBoolean("new_game", true)){
+        if (!initialised) {
+            newGame = getArguments().getBoolean("new_game", true);
+            if (newGame) {
                 loadNewConfig();
-            }else {
+            } else {
                 loadSavedConfig();
             }
+            startNewCountDownTimer();
             resultTxt.setText(getString(R.string.loading_grid));
             initialised = true;
         }
@@ -61,6 +72,7 @@ public class GameFragment extends Fragment {
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                countDownTimer.cancel();
                 resultTxt.setText(grid.gagne() ? "You won!" : "You lost!!");
             }
         });
@@ -69,6 +81,7 @@ public class GameFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 loadNewConfig();
+                startNewCountDownTimer();
             }
         });
 
@@ -106,17 +119,14 @@ public class GameFragment extends Fragment {
     }
 
     private void loadSavedConfig() {
-        String game = GamePreferences.getInstance().getSavedGame(getContext());
-        if(!game.equals("")){
-            String params[] = game.split(":");
-
+        String game = gamePreferences.getSavedGame(getContext());
+        if (!game.equals("")) {
             resultTxt.setText("");
-            grid.applyNewConfig(params[0]);
-//            grid.applyTimer(params[1]);
+            grid.applyNewConfig(game);
         }
     }
 
-    public void loadNewConfig(){
+    public void loadNewConfig() {
         Api.gridService.getRandomGrid().enqueue(new Callback<GridDto>() {
             @Override
             public void onResponse(Call<GridDto> call, Response<GridDto> response) {
@@ -135,9 +145,32 @@ public class GameFragment extends Fragment {
         grid.set(currentX, currentY, selectedElement);
     }
 
+    private void startNewCountDownTimer() {
+        long remainingTime = gamePreferences.getCountDownTime(getContext(), newGame);
+
+        if(countDownTimer != null){
+            countDownTimer.cancel();
+        }
+
+        countDownTimer = new CountDownTimer(remainingTime, 1000) {
+            public void onTick(long millis) {
+                int seconds = (int) (millis / 1000);
+                int minutes = seconds / 60;
+                seconds = seconds % 60;
+
+                timerTxt.setText(String.format("%02d:%02d", minutes, seconds));
+            }
+
+            public void onFinish() {
+                resultTxt.setText(grid.gagne() ? "You won!" : "You lost!!");
+            }
+        };
+        countDownTimer.start();
+    }
+
     @Override
     public void onResume() {
         super.onResume();
-        Grille.spacing = GamePreferences.getInstance().getGridSpacing(getContext());
+        Grille.spacing = gamePreferences.getGridSpacing(getContext());
     }
 }
