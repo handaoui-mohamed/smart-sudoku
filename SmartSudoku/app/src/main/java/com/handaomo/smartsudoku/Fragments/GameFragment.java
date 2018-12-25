@@ -46,10 +46,10 @@ public class GameFragment extends Fragment {
 
         if(!initialised) {
             Bundle bundle = getArguments();
-            if(bundle.getBoolean("new_game", false)){
-                loadSavedConfig();
-            }else {
+            if(bundle.getBoolean("new_game", true)){
                 loadNewConfig();
+            }else {
+                loadSavedConfig();
             }
             resultTxt.setText(getString(R.string.loading_grid));
             initialised = true;

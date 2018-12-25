@@ -30,10 +30,10 @@ public class MainFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
 
         playBtn = view.findViewById(R.id.playBtn);
-        loadBtn = view.findViewById(R.id.logoutBtn);
+        loadBtn = view.findViewById(R.id.loadBtn);
         aboutBtn = view.findViewById(R.id.aboutBtn);
         loginBtn = view.findViewById(R.id.loginBtn);
-        logoutBtn = view.findViewById(R.id.loadBtn);
+        logoutBtn = view.findViewById(R.id.logoutBtn);
         currentUserTxt = view.findViewById(R.id.currentUserTxt);
 
         logoutBtn.setOnClickListener(new View.OnClickListener() {
@@ -41,6 +41,7 @@ public class MainFragment extends Fragment {
                 GamePreferences.getInstance().removeCurrentUser(context);
                 loginBtn.setVisibility(View.VISIBLE);
                 playBtn.setVisibility(View.GONE);
+                loadBtn.setVisibility(View.GONE);
                 logoutBtn.setVisibility(View.GONE);
                 currentUserTxt.setText(getString(R.string.not_loggedin));
             }
@@ -93,6 +94,7 @@ public class MainFragment extends Fragment {
     public void onResume() {
         super.onResume();
         String currentUser = GamePreferences.getInstance().getCurrentUser(context);
+        GameFragment.initialised = false;
         if(currentUser.equals("")){
             loginBtn.setVisibility(View.VISIBLE);
             playBtn.setVisibility(View.GONE);
