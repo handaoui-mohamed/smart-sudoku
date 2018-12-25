@@ -50,6 +50,8 @@ public class GameFragment extends Fragment {
         ((TextView) view.findViewById(R.id.currentUserTxt)).setText(currentUser);
 
         grid = view.findViewById(R.id.sudoku_grid);
+        grid.requestLayout();
+
         resultTxt = view.findViewById(R.id.gameResult);
         timerTxt = view.findViewById(R.id.timerTxt);
 

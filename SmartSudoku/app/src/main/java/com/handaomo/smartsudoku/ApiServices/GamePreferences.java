@@ -60,7 +60,7 @@ public class GamePreferences {
         PreferenceManager
                 .getDefaultSharedPreferences(context).edit()
                 .putString("saved_config", config)
-                .putLong("saved_timer", timer / 60 / 1000)
+                .putString("saved_timer", "" + (timer / 60 / 1000))
                 .apply();
     }
 

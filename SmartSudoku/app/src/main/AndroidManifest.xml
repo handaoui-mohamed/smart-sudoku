@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.handaomo.smartsudoku">
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:allowBackup="true"
+        android:configChanges="orientation|keyboardHidden"
         android:icon="@drawable/sudoku"
         android:label="@string/app_name"
         android:roundIcon="@drawable/sudoku"
+        android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activities.MainActivity">
+        <activity
+            android:name=".Activities.MainActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -18,14 +24,14 @@
         </activity>
         <activity android:name=".Activities.AboutActivity" />
         <activity
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
             android:name=".Activities.SettingsActivity"
-            android:label="@string/title_activity_settings"/>
+            android:label="@string/title_activity_settings"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />
 
         <activity
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
             android:name=".Activities.LoginActivity"
-            android:label="@string/login"/>
+            android:label="@string/login"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />
     </application>
 
 </manifest>
