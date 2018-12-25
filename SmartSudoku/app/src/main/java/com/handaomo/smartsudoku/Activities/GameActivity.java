@@ -25,11 +25,13 @@ import retrofit2.Response;
 
 public class GameActivity extends AppCompatActivity {
     private static final int CHOICE_RESULT = 24;
+    private boolean gameOver = false;
     private Grille grid;
     private int currentX;
     private int currentY;
     private TextView resultTxt, timerTxt;
     private boolean newGame = true;
+    long remainingTime = 0;
     CountDownTimer countDownTimer;
     GamePreferences gamePreferences;
 
@@ -57,13 +59,12 @@ public class GameActivity extends AppCompatActivity {
             // check if it's a new game
             newGame = getIntent().getBooleanExtra("new_game", true);
 
-            if (newGame) {
-                loadNewConfig();
-            } else {
-                loadSavedConfig();
-            }
-            startNewCountDownTimer();
             resultTxt.setText(getString(R.string.loading_grid));
+
+            if (newGame) loadNewConfig();
+            else loadSavedConfig();
+
+            startNewCountDownTimer();
         }
 
         setGridTouchListener();
@@ -79,6 +80,7 @@ public class GameActivity extends AppCompatActivity {
                         return true;
 
                     case MotionEvent.ACTION_UP:
+                        if (gameOver) return false;
                         // TODO: check if the click is in the grid
                         currentX = (int) event.getX();
                         currentY = (int) event.getY();
@@ -96,23 +98,57 @@ public class GameActivity extends AppCompatActivity {
         });
     }
 
+    public void saveGame() {
+        int matrix[][] = grid.getGameMatrix();
+        boolean fixIdx[][] = grid.getFixIdx();
+
+        StringBuilder gameConfig = new StringBuilder();
+        StringBuilder fixedItems = new StringBuilder();
+
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                gameConfig.append(matrix[i][j]);
+                fixedItems.append(fixIdx[i][j] ? 0 : 1);
+            }
+        }
+
+        gamePreferences.saveGame(this, gameConfig + ":" + fixedItems, remainingTime);
+    }
+
+    private void loadSavedConfig() {
+        String game = gamePreferences.getSavedGame(this);
+        newGame = true;
+
+        if (!game.equals("")) {
+            gameOver = false;
+
+            resultTxt.setText("");
+            String config[] = game.split(":");
+
+            boolean fixIdx[][] = new boolean[9][9];
+
+            for (int i = 0; i < 9; i++)
+                for (int j = 0; j < 9; j++)
+                    fixIdx[i][j] = config[1].charAt((i * 9) + j) == '0';
+
+            grid.applyNewConfig(config[0], fixIdx);
+        }else{
+            loadNewGame(null);
+        }
+    }
+
     public void loadNewGame(View view) {
+        gameOver = false;
         loadNewConfig();
         // restart countdown timer
         startNewCountDownTimer();
     }
 
     public void confirmSolution(View view) {
+        saveGame();
         countDownTimer.cancel();
+        gameOver = true;
         resultTxt.setText(grid.gagne() ? "You won!" : "You lost!!");
-    }
-
-    private void loadSavedConfig() {
-        String game = gamePreferences.getSavedGame(this);
-        if (!game.equals("")) {
-            resultTxt.setText("");
-            grid.applyNewConfig(game);
-        }
     }
 
     public void loadNewConfig() {
@@ -131,14 +167,15 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void startNewCountDownTimer() {
-        long remainingTime = gamePreferences.getCountDownTime(this, newGame);
+        long countDownTime = gamePreferences.getCountDownTime(this, newGame);
 
         if (countDownTimer != null) {
             countDownTimer.cancel();
         }
 
-        countDownTimer = new CountDownTimer(remainingTime, 1000) {
+        countDownTimer = new CountDownTimer(countDownTime, 1000) {
             public void onTick(long millis) {
+                GameActivity.this.remainingTime = millis;
                 int seconds = (int) (millis / 1000);
                 int minutes = seconds / 60;
                 seconds = seconds % 60;
@@ -147,6 +184,7 @@ public class GameActivity extends AppCompatActivity {
             }
 
             public void onFinish() {
+                gameOver = true;
                 resultTxt.setText(grid.gagne() ? "You won!" : "You lost!!");
             }
         };

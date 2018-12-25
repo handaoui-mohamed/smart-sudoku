@@ -188,6 +188,22 @@ public class Grille extends View {
         invalidate();
     }
 
+    public void applyNewConfig(String newConfig, boolean fixIdx[][]) {
+        config = newConfig;
+        init();
+        this.fixIdx = fixIdx;
+        invalidate();
+    }
+
+
+    public int[][] getGameMatrix() {
+        return matrix;
+    }
+
+    public boolean[][] getFixIdx() {
+        return fixIdx;
+    }
+
     public void setSpacing(int spacing) {
         this.spacing = spacing;
     }
