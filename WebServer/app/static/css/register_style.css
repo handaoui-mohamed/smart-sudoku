@@ -185,7 +185,7 @@ p.agileits2 {
     float: left;
     padding: 40px 0 0;
 }
-input#firstname, #lastname, #username,input#email,input#password,input#password2 {
+input#username,input#lastname,input#firstname, input#lastname, input#username,input#password,input#password2 {
 	width:300px;
 	height:50px;
 	padding:0 10px;
@@ -203,7 +203,7 @@ input#firstname, #lastname, #username,input#email,input#password,input#password2
 	display:block;
 	outline:none;
 }
-#username:focus,#lastname:focus,input#firstname:focus,input#email:focus,input#password:focus,input#password2:focus{
+input#username:focus,input#lastname:focus,input#firstname:focus,input#email:focus,input#password:focus,input#password2:focus{
 	color:#fff;
 	border-bottom:5px solid #fff;
 }
@@ -361,7 +361,7 @@ p.copyright {
 p.wthree {
     font-size: 14px;
 }
-input#firstname, input#email, input#password, input#password2 {
+input#username,input#lastname,input#firstname, input#email, input#password, input#password2 {
 	font-size:15px;
 }
 }
@@ -383,7 +383,7 @@ h2.agileits1 {
 }
 
 @media (max-width: 800px) {
-input#firstname, input#email, input#password, input#password2 {
+input#username,input#lastname,input#firstname, input#email, input#password, input#password2 {
     width: 260px;
 }
 input.register {
@@ -451,7 +451,7 @@ h1.w3ls {
 }
 
 @media (max-width: 384px) {
-input#firstname, input#email, input#password, input#password2 {
+input#username,input#lastname,input#firstname, input#email, input#password, input#password2 {
     width: 230px;
 	height: 40px;
 }
@@ -498,7 +498,7 @@ h2.agileits1 {
 p.agileits2 {
     font-size: 13px;
 }
-input#firstname, input#email, input#password, input#password2 {
+input#username,input#lastname,input#firstname, input#email, input#password, input#password2 {
     width: 195px;
     height: 40px;
 	font-size: 14px;
