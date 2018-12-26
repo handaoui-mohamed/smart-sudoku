@@ -154,6 +154,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void loadNewConfig() {
+        gameOver = false;
         Api.gridService.getRandomGrid().enqueue(new Callback<GridDto>() {
             @Override
             public void onResponse(Call<GridDto> call, Response<GridDto> response) {
