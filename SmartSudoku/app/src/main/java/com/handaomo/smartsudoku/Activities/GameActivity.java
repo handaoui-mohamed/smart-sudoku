@@ -229,7 +229,6 @@ public class GameActivity extends AppCompatActivity {
             case R.id.newGameOptionBtn:
                 loadNewConfig();
                 startNewCountDownTimer();
-                newGame = true;
                 Toast.makeText(this, "Nouvelle partie chargée", Toast.LENGTH_LONG).show();
                 return true;
             case R.id.saveOptionBtn:
