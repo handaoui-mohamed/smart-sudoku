@@ -16,11 +16,14 @@ public class Grille extends View {
 
     public int spacing = 5;
 
+    public int gameState = 0; // 0 default state, 1 win, 2 loss
+
     private Paint paint;   // Pour dessiner la grille (lignes noires)
     private Paint paint1;   // Pour dessiner la grille (lignes noires)
     private Paint paint2;   // Pour le texte des cases fixes
     private Paint paint3;   // Pour dessiner les lignes rouges (grosse)
     private Paint paint4;   // Pour le texte noir des cases a modifier
+    private Paint paint5;   // Pour rectangle du fin de jeu
 
     int[][] matrix = new int[9][9];
     boolean[][] fixIdx = new boolean[9][9];
@@ -75,6 +78,12 @@ public class Grille extends View {
         paint4.setAntiAlias(true);
         paint4.setTextSize(textSize);
         paint4.setColor(Color.BLACK);
+
+
+        paint5 = new Paint();
+        paint5.setAntiAlias(true);
+        paint5.setStrokeWidth(spacing);
+        paint5.setStyle(Paint.Style.STROKE);
     }
 
     @Override
@@ -97,6 +106,11 @@ public class Grille extends View {
                 canvas.drawRect(j + n, i + spacing, j + spacing, i + n,
                         fixIdx[i / n][j / n] ? paint : paint1);
             }
+        }
+
+        if(gameState != 0){
+            paint5.setColor(getResources().getColor(gameState == 1 ?  R.color.green : R.color.red));
+            canvas.drawRect(spacing / 2, spacing / 2, w + spacing / 2, w, paint5);
         }
 
         String s;
@@ -160,7 +174,7 @@ public class Grille extends View {
     public boolean isNotFix(int x, int y) {
         int idy = getYFromMatrix(y);
         int idx = getXFromMatrix(x);
-        if(idx > 8 || idy > 8) return true;
+        if (idx > 8 || idy > 8) return true;
         return fixIdx[getYFromMatrix(y)][getXFromMatrix(x)];
     }
 
@@ -209,5 +223,11 @@ public class Grille extends View {
 
     public void setSpacing(int spacing) {
         this.spacing = spacing;
+    }
+
+
+    public void setGameState(int gameState) {
+        this.gameState = gameState;
+        invalidate();
     }
 }

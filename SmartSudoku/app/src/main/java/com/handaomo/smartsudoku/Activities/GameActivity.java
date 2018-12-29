@@ -150,7 +150,9 @@ public class GameActivity extends AppCompatActivity {
     public void confirmSolution(View view) {
         countDownTimer.cancel();
         gameOver = true;
-        resultTxt.setText(grid.gagne() ? getString(R.string.you_won) : getString(R.string.you_lost));
+        boolean gameWon = grid.gagne();
+        resultTxt.setText(gameWon ? getString(R.string.you_won) : getString(R.string.you_lost));
+        grid.setGameState(gameWon ? 1 : 2);
     }
 
     public void loadNewConfig() {
@@ -187,8 +189,7 @@ public class GameActivity extends AppCompatActivity {
             }
 
             public void onFinish() {
-                gameOver = true;
-                resultTxt.setText(grid.gagne() ? getString(R.string.you_won) : getString(R.string.you_lost));
+                confirmSolution(null);
             }
         };
         countDownTimer.start();
@@ -227,6 +228,7 @@ public class GameActivity extends AppCompatActivity {
                 startActivity(settingsIntent);
                 return true;
             case R.id.newGameOptionBtn:
+                grid.setGameState(0);
                 loadNewConfig();
                 startNewCountDownTimer();
                 Toast.makeText(this, "Nouvelle partie chargée", Toast.LENGTH_LONG).show();
@@ -236,6 +238,7 @@ public class GameActivity extends AppCompatActivity {
                 Toast.makeText(this, "Partie sauvegardée", Toast.LENGTH_LONG).show();
                 return true;
             case R.id.loadOptionBtn:
+                grid.setGameState(0);
                 loadSavedConfig();
                 newGame = false;
                 startNewCountDownTimer();
