@@ -1,0 +1,118 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Smart SuDoku : New Grid</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="sudoku, smart, smart-sudoku, smart sudoku" />
+    <script
+        type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!-- fonts -->
+    <!-- <link href="//fonts.googleapis.com/css?family=Raleway:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+<link href="//fonts.googleapis.com/css?family=Monoton" rel="stylesheet"> -->
+    <!-- /fonts -->
+    <!-- css -->
+    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="css/register_style.css" rel='stylesheet' type='text/css' media="all" />
+    <link href="css/grid_style.css" rel='stylesheet' type='text/css' media="all" />
+    <!-- /css -->
+</head>
+
+<body>
+    <div id="signup-msg">
+        <div id="msg-header-container">
+            <div id="msg-header">Message header</div>
+            <div id="msg-close-btn">x</div>
+        </div>
+        <div id="msg-content">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Modi, vero!</div>
+    </div>
+    <div id="content">
+        <table id="grid-table"></table>
+    </div>
+
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript">
+        var msgContainer, msgHeader, msgContent;
+
+        window.onload = function () {
+            content = '';
+            for (let i = 0; i < 9; i++) {
+                content += '<tr>';
+                for (let i = 0; i < 9; i++) {
+                    content += '<td><input type="number" min="0" max="9" class="grid-element"></td>';
+                }
+                content += '</tr>';
+            }
+
+            $("#grid-table").html(content);
+
+            height = $(window).height();
+            width = $(window).width();
+
+            min = Math.min(height, width);
+            margin = min * 0.2;
+            size = min - 2 * margin;
+
+            $("#content").height(size);
+            $("#content").width(size);
+            $("#content").css({ 'top': ((height - size) / 2) + 'px' });
+            $("#content").css({ 'left': ((width - size) / 2) + 'px' });
+
+            // document.getElementById("password").onchange = validatePassword;
+            // document.getElementById("password2").onchange = validatePassword;
+            // $('#signup-form').submit(signup);
+
+            // // signup msg
+            // msgContainer = $('#signup-msg');
+            // msgHeader = $('#msg-header');
+            // msgContent = $('#msg-content');
+
+            // $('#msg-close-btn').click(function () {
+            //     msgContainer.fadeOut(300);
+            // });
+        }
+
+        function signup(event) {
+            event.preventDefault();
+            $('#signup-btn').prop('disabled', true);
+            var objectData = {
+                username: document.getElementById('username').value,
+                first_name: document.getElementById('firstname').value,
+                last_name: document.getElementById('lastname').value,
+                password: document.getElementById('password').value
+            };
+
+            $.ajax({
+                type: "POST",
+                url: "/api/users",
+                dataType: "json",
+                data: JSON.stringify(objectData),
+                success: function (data) {
+                    msgHeader.text("Success !");
+                    msgContent.text("A new account was created successfully.");
+                    msgContainer.css('background-color', '#2ecc71');
+                    msgContainer.fadeIn(100);
+                    setTimeout(function () {
+                        msgContainer.fadeOut(300);
+                        window.location = "/home";
+                    }, 3000);
+                },
+                error: function () {
+                    $('#signup-btn').prop('disabled', false);
+                    msgHeader.text("Error !");
+                    msgContent.text("Username already exists, please choose a new one.");
+                    msgContainer.css('background-color', '#e74c3c');
+                    msgContainer.fadeIn(100);
+                    setTimeout(function () {
+                        msgContainer.fadeOut(300);
+                    }, 5000);
+                }
+            });
+            event.preventDefault();
+            return false;
+        }
+    </script>
+</body>
+
+</html>

@@ -10,3 +10,5 @@ flask-wtf==0.13.1
 haversine==0.4.5
 Flask_Login==0.4.0
 flask-socketio==3.2.1
+eventlet==0.24.1
+python-dateutil==2.8.0

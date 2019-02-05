@@ -1,3 +1,5 @@
 #!flask/bin/python
-from app import app
-app.run(debug=True, threaded=True, host='0.0.0.0')
+from app import app, socketio
+
+socketio.run(app, debug=True, host='0.0.0.0')
+    

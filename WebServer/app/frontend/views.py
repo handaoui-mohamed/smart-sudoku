@@ -10,6 +10,10 @@ def home():
 def register():
     return app.send_static_file("register.html")
 
+@app.route('/new-grid')
+def newGrid():
+    return app.send_static_file("new_grid.html")
+
 @app.errorhandler(500)
 def error(e):
     db.session.rollback()

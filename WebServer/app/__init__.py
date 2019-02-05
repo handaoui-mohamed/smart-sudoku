@@ -5,6 +5,7 @@ from flask import Flask, url_for
 from flask_sqlalchemy import SQLAlchemy
 from config import basedir
 from flask_cors import CORS
+from flask_socketio import SocketIO
 import sys
 
 reload(sys)
@@ -13,6 +14,7 @@ sys.setdefaultencoding('utf8')
 # initialization
 app = Flask(__name__, static_url_path='')
 app.config.from_object('config')
+socketio = SocketIO(app)
 # extensions
 db = SQLAlchemy(app)
 
