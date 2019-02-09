@@ -40,18 +40,25 @@ def add_grid():
     form = NewGridForm(MultiDict(mapping=data))
     if form.validate():
         configuration = data.get('configuration')
-        solution = data.get('solution')
-        grid = Grid(configuration=configuration,
-                    solution=solution)
+        grid = Grid(configuration=configuration)
         db.session.add(grid)
         db.session.commit()
-        emit('new_grid', grid.to_json())
+        socketio.emit('new_grid', grid.to_json())
         return jsonify({'success': 'true'}), 201
     return jsonify({"form_errors": form.errors}), 400
 
 
-@socketio.on('check_new_grid')
+@app.route('/api/grids/update')
 def check_update(last_update):
+    grids = Grid.query\
+        .filter(Grid.date < datetime.strptime(last_update, "%a, %d %b %Y %H:%M:%S %Z"))\
+        .order_by(Grid.id.desc()).all()
+    if(grids is not None):
+        return jsonify({'new_grids':  [grid.to_json() for grid in grids]})
+
+
+@socketio.on('check_new_grid')
+def socket_check_update(last_update):
     # emit lastest config
     grids = Grid.query\
         .filter(Grid.date < datetime.strptime(last_update, "%a, %d %b %Y %H:%M:%S %Z"))\

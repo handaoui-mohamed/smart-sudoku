@@ -8,7 +8,6 @@ body {
 
 #content {
     position: absolute;
-    background-color: #fff;
 }
 
 table {
@@ -27,8 +26,42 @@ tr {
 
 input {
     height: 100%;
-    width: calc(100% - 5px);
+    /* width: calc(100% - 5px); */
     padding: 0;
     margin: 0;
-    background-color: #eee;
+    border-color: #fff;
+    background-color: #fff !important;
+    border-right-width: 1px; 
+    border-left-width: 1px; 
+    border-top-width: 1px; 
+    border-bottom-width: 1px;
+}
+
+.input-border-right{
+    border-right-width: 2px; 
+    border-right-color: red;
+}
+.input-border-left{
+    border-left-width: 2px; 
+    border-left-color: red;
+}
+.input-border-top{
+    border-top-width: 2px; 
+    border-top-color: red;
+}
+.input-border-bottom{
+    border-bottom-width: 2px; 
+    border-bottom-color: red;
+}
+
+#submit-btn{
+    background-color: #3970b0 !important;
+}
+
+#new-grid-title{
+    text-align: center;
+    color: #fff;
+    font-size: 20px;
+    padding: 10px;
+    background-color: #00000069;
 }
