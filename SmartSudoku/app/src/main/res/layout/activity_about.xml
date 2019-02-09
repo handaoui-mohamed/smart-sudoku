@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activities.AboutActivity">
+    tools:context=".activities.AboutActivity"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
 
     <TextView
         android:id="@+id/textView"
+        android:textColor="#333"
         android:textAlignment="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,11 +19,4 @@
         android:text="@string/developed_by"
         android:textSize="20sp"/>
 
-    <Button
-        android:id="@+id/button"
-        android:layout_marginTop="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="goBack"
-        android:text="@string/go_back"/>
 </LinearLayout>

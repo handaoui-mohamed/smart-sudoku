@@ -14,8 +14,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.handaomo.smartsudoku.services.Api;
-import com.handaomo.smartsudoku.services.GamePreferences;
+import com.handaomo.smartsudoku.api_services.Api;
+import com.handaomo.smartsudoku.api_services.GamePreferences;
 import com.handaomo.smartsudoku.dtos.GridDto;
 import com.handaomo.smartsudoku.R;
 import com.handaomo.smartsudoku.views.Grille;

@@ -1,4 +1,4 @@
-package com.handaomo.smartsudoku.services;
+package com.handaomo.smartsudoku.api_services;
 
 import android.content.Context;
 import android.support.v7.preference.PreferenceManager;
@@ -64,5 +64,18 @@ public class GamePreferences {
         return Long.parseLong(PreferenceManager
                     .getDefaultSharedPreferences(context)
                     .getString("saved_timer", "60000"));
+    }
+
+    public String getLastUpdateDate(Context context) {
+        return PreferenceManager
+                .getDefaultSharedPreferences(context)
+                .getString("last_update_date", "2019-02-01T21:16:00Z");
+    }
+
+    public void setLastUpdateDate(Context context, String date) {
+        PreferenceManager
+                .getDefaultSharedPreferences(context).edit()
+                .putString("last_update_date", date)
+                .apply();
     }
 }

@@ -25,7 +25,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.AboutActivity" />
+        <activity
+            android:name=".activities.AboutActivity"
+            android:label="@string/about"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar"  />
 
         <activity
             android:name=".activities.SettingsActivity"
@@ -45,6 +48,9 @@
         <activity
             android:name=".activities.GameActivity"
             android:label="Partie" />
+
+        <service android:name=".services.SocketIoService" />
+        <service android:name=".services.GridNotificationService" />
     </application>
 
 </manifest>

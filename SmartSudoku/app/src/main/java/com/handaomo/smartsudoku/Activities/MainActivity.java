@@ -12,9 +12,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.handaomo.smartsudoku.services.GamePreferences;
+import com.handaomo.smartsudoku.api_services.GamePreferences;
 import com.handaomo.smartsudoku.R;
-import com.handaomo.smartsudoku.services.Api;
+import com.handaomo.smartsudoku.api_services.Api;
+import com.handaomo.smartsudoku.services.GridNotificationService;
+import com.handaomo.smartsudoku.services.SocketIoService;
 
 public class MainActivity extends AppCompatActivity {
     private static final int LOGIN_RESULT = 25;
@@ -77,12 +79,13 @@ public class MainActivity extends AppCompatActivity {
         loadBtn.setVisibility(View.GONE);
         logoutBtn.setVisibility(View.GONE);
         currentUserTxt.setText(getString(R.string.not_loggedin));
+        SocketIoService.stop(this);
+        GridNotificationService.stop(this);
     }
 
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
         if (requestCode == LOGIN_RESULT) {
             if (resultCode == Activity.RESULT_OK) setCurrentUser();
         }
@@ -98,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
             loadBtn.setVisibility(View.VISIBLE);
             logoutBtn.setVisibility(View.VISIBLE);
             currentUserTxt.setText(currentUser);
+            SocketIoService.start(this);
         }
     }
 

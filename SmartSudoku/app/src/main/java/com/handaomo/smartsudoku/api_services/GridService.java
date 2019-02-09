@@ -1,4 +1,4 @@
-package com.handaomo.smartsudoku.services;
+package com.handaomo.smartsudoku.api_services;
 
 import com.handaomo.smartsudoku.dtos.GridDto;
 import java.util.List;
