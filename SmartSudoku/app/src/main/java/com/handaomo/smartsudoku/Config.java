@@ -10,4 +10,8 @@ public interface Config {
     String EVENT_NEW_GRID = "new_grid";
     String EVENT_NEW_GRID_UPDATE = "new_grid_update";
     String EMIT_SOCKET_CHECK_UPDATES = "check_new_grid";
+
+    // Intent Result code
+    int LOGIN_RESULT = 25;
+    int NOTIFICATION_RESULT = 26;
 }

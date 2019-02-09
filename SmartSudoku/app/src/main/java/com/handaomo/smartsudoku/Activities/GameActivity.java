@@ -60,12 +60,17 @@ public class GameActivity extends AppCompatActivity {
 
         if (savedInstanceState == null) {
             // check if it's a new game
-            newGame = getIntent().getBooleanExtra("new_game", true);
+            Intent gameIntent = getIntent();
+            newGame = gameIntent.getBooleanExtra("new_game", true);
+            String gridFromNotif = gameIntent.getStringExtra("grid_config");
 
             resultTxt.setText(getString(R.string.loading_grid));
             submitBnt.setEnabled(false);
 
-            if (newGame) loadTodayConfig();
+            if (newGame) {
+                if(gridFromNotif.length() == 81) loadConfigFromNotif(gridFromNotif);
+                else loadTodayConfig();
+            }
             else loadSavedConfig();
         }
 
@@ -117,6 +122,28 @@ public class GameActivity extends AppCompatActivity {
         }
 
         gamePreferences.saveGame(this, gameConfig + ":" + fixedItems, remainingTime);
+    }
+
+    private void loadConfigFromNotif(String game){
+        if (!game.equals("")) {
+            gameOver = false;
+
+            resultTxt.setText("");
+
+            boolean fixIdx[][] = new boolean[9][9];
+
+            for (int i = 0; i < 9; i++)
+                for (int j = 0; j < 9; j++)
+                    fixIdx[i][j] = game.charAt((i * 9) + j) != '0';
+
+            grid.applyNewConfig(game, fixIdx);
+            submitBnt.setEnabled(true);
+
+            startNewCountDownTimer();
+            newGame = true;
+        } else {
+            loadNewGame();
+        }
     }
 
     private void loadSavedConfig() {

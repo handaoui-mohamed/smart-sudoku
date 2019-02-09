@@ -9,8 +9,9 @@ import android.graphics.Color;
 import android.provider.Settings;
 import android.support.v4.app.NotificationCompat;
 
+import com.handaomo.smartsudoku.Config;
 import com.handaomo.smartsudoku.R;
-import com.handaomo.smartsudoku.activities.GameActivity;
+import com.handaomo.smartsudoku.activities.MainActivity;
 
 class GridNotificationHelper {
     private Context mContext;
@@ -21,18 +22,19 @@ class GridNotificationHelper {
     }
 
     void createNotification(String message) {
-        Intent resultIntent = new Intent(mContext, GameActivity.class);
+        Intent resultIntent = new Intent(mContext, MainActivity.class);
         resultIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        resultIntent.putExtra("new_grid", message);
 
         PendingIntent resultPendingIntent = PendingIntent.getActivity(mContext,
-                0, resultIntent,
+                Config.NOTIFICATION_RESULT, resultIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(mContext, NOTIFICATION_CHANNEL_ID);
         mBuilder.setSmallIcon(R.drawable.sudoku);
         mBuilder.setContentTitle("Nouvelle grille proposée")
                 .setContentText(message)
-                .setAutoCancel(false)
+                .setAutoCancel(true)
                 .setSound(Settings.System.DEFAULT_NOTIFICATION_URI)
                 .setContentIntent(resultPendingIntent);
 

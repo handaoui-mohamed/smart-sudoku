@@ -6,12 +6,14 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.handaomo.smartsudoku.Config;
 import com.handaomo.smartsudoku.api_services.GamePreferences;
 import com.handaomo.smartsudoku.R;
 import com.handaomo.smartsudoku.api_services.Api;
@@ -19,7 +21,6 @@ import com.handaomo.smartsudoku.services.GridNotificationService;
 import com.handaomo.smartsudoku.services.SocketIoService;
 
 public class MainActivity extends AppCompatActivity {
-    private static final int LOGIN_RESULT = 25;
     Context context;
     Button playBtn, aboutBtn, loginBtn, logoutBtn, loadBtn;
     TextView currentUserTxt;
@@ -40,19 +41,31 @@ public class MainActivity extends AppCompatActivity {
         logoutBtn = findViewById(R.id.logoutBtn);
         currentUserTxt = findViewById(R.id.currentUserTxt);
 
-        setCurrentUser();
-        Api.init();
+        if (savedInstanceState == null) {
+            setCurrentUser();
+            Api.init();
+
+            Intent intent = getIntent();
+            if (intent != null) {
+                String grid_config = intent.getStringExtra("new_grid");
+                if (grid_config != null && grid_config.length() == 81) {
+                    Log.i("SOCKETSS", grid_config);
+                    startGame(true, grid_config);
+                }
+            }
+        }
     }
 
-    private void startGame(boolean newGame) {
+    private void startGame(boolean newGame, String gridFromNotif) {
         Intent gameIntent = new Intent(this, GameActivity.class);
         gameIntent.putExtra("new_game", newGame);
+        gameIntent.putExtra("grid_config", gridFromNotif);
         startActivity(gameIntent);
     }
 
     public void goToLogin(View view) {
         Intent loginIntent = new Intent(context, LoginActivity.class);
-        startActivityForResult(loginIntent, LOGIN_RESULT);
+        startActivityForResult(loginIntent, Config.LOGIN_RESULT);
     }
 
     public void logout(View view) {
@@ -65,11 +78,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void loadGame(View view) {
-        startGame(false);
+        startGame(false, " ");
     }
 
     public void startNewGame(View view) {
-        startGame(true);
+        startGame(true, " ");
     }
 
     public void goToAbout(View view) {
@@ -87,9 +100,19 @@ public class MainActivity extends AppCompatActivity {
 
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == LOGIN_RESULT) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        if (requestCode == Config.LOGIN_RESULT) {
             if (resultCode == Activity.RESULT_OK) setCurrentUser();
+        }
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        if (intent != null) {
+            String grid_config = intent.getStringExtra("new_grid");
+            if (grid_config != null && grid_config.length() == 81)
+                startGame(true, grid_config);
         }
     }
 
