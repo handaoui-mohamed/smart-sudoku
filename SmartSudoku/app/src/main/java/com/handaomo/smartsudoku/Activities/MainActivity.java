@@ -49,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
             if (intent != null) {
                 String grid_config = intent.getStringExtra("new_grid");
                 if (grid_config != null && grid_config.length() == 81) {
-                    Log.i("SOCKETSS", grid_config);
                     startGame(true, grid_config);
                 }
             }

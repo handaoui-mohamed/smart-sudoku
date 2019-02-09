@@ -23,7 +23,7 @@ class GridNotificationHelper {
 
     void createNotification(String message) {
         Intent resultIntent = new Intent(mContext, MainActivity.class);
-        resultIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        resultIntent.addFlags(Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP);
         resultIntent.putExtra("new_grid", message);
 
         PendingIntent resultPendingIntent = PendingIntent.getActivity(mContext,
