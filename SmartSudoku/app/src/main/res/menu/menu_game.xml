@@ -10,13 +10,18 @@
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/newGameOptionBtn"
-        android:title="Nouvelle partie"
+        android:id="@+id/reloadGameOptionBtn"
+        android:title="Recharger partie"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/randomGameOptionBtn"
+        android:title="Partie aléatoire"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/loadOptionBtn"
-        android:title="Charger partie"
+        android:title="Partie sauvegardée"
         app:showAsAction="never" />
 
     <item

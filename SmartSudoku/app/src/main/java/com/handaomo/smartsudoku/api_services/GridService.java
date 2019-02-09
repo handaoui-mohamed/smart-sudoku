@@ -6,6 +6,9 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 
 public interface GridService {
+    @GET("grids/today")
+    Call<GridDto> getTodayGrid();
+
     @GET("grids/random")
     Call<GridDto> getRandomGrid();
 

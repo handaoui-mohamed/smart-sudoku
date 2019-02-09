@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +32,7 @@ public class GameActivity extends AppCompatActivity {
     private int currentX;
     private int currentY;
     private TextView resultTxt, timerTxt;
+    private Button submitBnt;
     private boolean newGame = true;
     long remainingTime = 0;
     CountDownTimer countDownTimer;
@@ -52,7 +54,7 @@ public class GameActivity extends AppCompatActivity {
         ((TextView) findViewById(R.id.currentUserTxt)).setText(currentUser);
 
         grid = findViewById(R.id.sudoku_grid);
-
+        submitBnt = findViewById(R.id.confirmBtn);
         resultTxt = findViewById(R.id.gameResult);
         timerTxt = findViewById(R.id.timerTxt);
 
@@ -61,12 +63,10 @@ public class GameActivity extends AppCompatActivity {
             newGame = getIntent().getBooleanExtra("new_game", true);
 
             resultTxt.setText(getString(R.string.loading_grid));
+            submitBnt.setEnabled(false);
 
-            if (newGame) loadNewConfig();
+            if (newGame) loadTodayConfig();
             else loadSavedConfig();
-
-            startNewCountDownTimer();
-            newGame = true;
         }
 
         setGridTouchListener();
@@ -135,6 +135,10 @@ public class GameActivity extends AppCompatActivity {
                     fixIdx[i][j] = config[1].charAt((i * 9) + j) == '0';
 
             grid.applyNewConfig(config[0], fixIdx);
+            submitBnt.setEnabled(true);
+
+            startNewCountDownTimer();
+            newGame = true;
         } else {
             loadNewGame();
         }
@@ -142,7 +146,7 @@ public class GameActivity extends AppCompatActivity {
 
     public void loadNewGame() {
         gameOver = false;
-        loadNewConfig();
+        loadTodayConfig();
         // restart countdown timer
         startNewCountDownTimer();
     }
@@ -155,13 +159,12 @@ public class GameActivity extends AppCompatActivity {
         grid.setGameState(gameWon ? 1 : 2);
     }
 
-    public void loadNewConfig() {
+    public void loadTodayConfig() {
         gameOver = false;
-        Api.gridService.getRandomGrid().enqueue(new Callback<GridDto>() {
+        Api.gridService.getTodayGrid().enqueue(new Callback<GridDto>() {
             @Override
             public void onResponse(Call<GridDto> call, Response<GridDto> response) {
-                resultTxt.setText("");
-                grid.applyNewConfig(response.body().configuration);
+                setNewConfig(response);
             }
 
             @Override
@@ -169,6 +172,30 @@ public class GameActivity extends AppCompatActivity {
                 //TODO: show error message or retry
             }
         });
+    }
+
+    public void loadRandomConfig() {
+        gameOver = false;
+        Api.gridService.getRandomGrid().enqueue(new Callback<GridDto>() {
+            @Override
+            public void onResponse(Call<GridDto> call, Response<GridDto> response) {
+                setNewConfig(response);
+            }
+
+            @Override
+            public void onFailure(Call<GridDto> call, Throwable t) {
+                //TODO: show error message or retry
+            }
+        });
+    }
+
+    private void setNewConfig(Response<GridDto> response) {
+        resultTxt.setText("");
+        grid.applyNewConfig(response.body().configuration);
+        submitBnt.setEnabled(true);
+
+        startNewCountDownTimer();
+        newGame = true;
     }
 
     private void startNewCountDownTimer() {
@@ -227,11 +254,17 @@ public class GameActivity extends AppCompatActivity {
                 Intent settingsIntent = new Intent(this, SettingsActivity.class);
                 startActivity(settingsIntent);
                 return true;
-            case R.id.newGameOptionBtn:
+            case R.id.reloadGameOptionBtn:
                 grid.setGameState(0);
-                loadNewConfig();
+                loadTodayConfig();
                 startNewCountDownTimer();
-                Toast.makeText(this, "Nouvelle partie chargée", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Partie rechargée", Toast.LENGTH_LONG).show();
+                return true;
+            case R.id.randomGameOptionBtn:
+                grid.setGameState(0);
+                loadRandomConfig();
+                startNewCountDownTimer();
+                Toast.makeText(this, "Partie aléatoire chargée", Toast.LENGTH_LONG).show();
                 return true;
             case R.id.saveOptionBtn:
                 saveGame();

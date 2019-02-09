@@ -19,5 +19,5 @@
 
     <Preference
         android:title="A propos"
-        android:summary="Dévelopé par Handaoui Mohamed"/>
+        android:summary="Développé par Handaoui Mohamed"/>
 </PreferenceScreen>

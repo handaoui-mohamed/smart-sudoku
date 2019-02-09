@@ -60,11 +60,8 @@ def check_update(last_update):
 @socketio.on('check_new_grid')
 def socket_check_update(last_update):
     # emit lastest config
-    print("here we go")
-    print(last_update)
     grid = Grid.query\
         .filter(Grid.date > datetime.strptime(last_update, "%Y-%m-%dT%H:%M:%SZ"))\
         .order_by(Grid.id.desc()).first()
     if(grid is not None):
-        print(grid.date)
         emit('new_grid_update', str(grid.to_json()))

@@ -57,6 +57,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void logout(View view) {
         GamePreferences.getInstance().removeCurrentUser(context);
+
+        GridNotificationService.stop(this);
+        SocketIoService.stop(this);
+
         hideViews();
     }
 
@@ -79,8 +83,6 @@ public class MainActivity extends AppCompatActivity {
         loadBtn.setVisibility(View.GONE);
         logoutBtn.setVisibility(View.GONE);
         currentUserTxt.setText(getString(R.string.not_loggedin));
-        SocketIoService.stop(this);
-        GridNotificationService.stop(this);
     }
 
 
