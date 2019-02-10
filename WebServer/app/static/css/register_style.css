@@ -174,7 +174,7 @@ h2.agileits1 {
 	/* font-family: 'Monoton', cursive; */
 }
 p.agileits2 {
-    font-size: 15px;
+    font-size: 18px;
     font-weight: normal;
     color: #fff;
     text-align: center;
@@ -353,7 +353,7 @@ h1.w3ls {
 	margin: 0 auto 40px;
 }
 p.agileits2 {
-    font-size: 14px;
+    font-size: 18px;
 }
 p.copyright {
     font-size: 14px;
@@ -496,7 +496,7 @@ h2.agileits1 {
 }
 /*-- agileinfo --*/
 p.agileits2 {
-    font-size: 13px;
+    font-size: 16px;
 }
 input#username,input#lastname,input#firstname, input#email, input#password, input#password2 {
     width: 195px;

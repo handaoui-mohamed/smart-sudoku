@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Smart SuDoku : New Grid</title>
+    <title>Smart SuDoku : nouvelle Grid</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="keywords" content="sudoku, smart, smart-sudoku, smart sudoku" />
@@ -28,7 +28,7 @@
         <div id="msg-content">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Modi, vero!</div>
     </div>
     <div id="content">
-        <h1 id="new-grid-title">Suggest new grid configuration</h1>
+        <h1 id="new-grid-title">Proposer une nouvelle configuration de grille</h1>
         <table id="grid-table"></table>
         <input type="submit" id="submit-btn" class="register" value="Envoyer">
     </div>
@@ -43,8 +43,10 @@
                 content += '<tr>';
                 for (let j = 0; j < 9; j++) {
                     let input_class = '';
-                    if (j === 2 || j === 5) input_class += 'input-border-right ';
-                    if (i === 2 || i === 5) input_class += 'input-border-bottom ';
+                    if (j === 2 || j === 5)
+                        input_class += 'input-border-right ';
+                    if (i === 2 || i === 5)
+                        input_class += 'input-border-bottom ';
 
                     content += `<td><input data-input-number="${i * 9 + j}" class="${input_class}" type="number" min="0" max="9" class="grid-element"></td>`;
                 }
@@ -68,7 +70,7 @@
             $("#new-grid-title").width($("#grid-table").width() - 20);
 
             $('input').change(function () {
-                if (this.value > 9 || this.value < 0) $(this).val('');
+                if (this.value > 9 || this.value <= 0) $(this).val('');
                 else config[parseInt($(this).data('inputNumber'))] = this.value;
             });
 
@@ -94,8 +96,8 @@
                 dataType: "json",
                 data: JSON.stringify({ configuration: config.join('') }),
                 success: function (data) {
-                    msgHeader.text("Success !");
-                    msgContent.text("A new grid was created successfully.");
+                    msgHeader.text("Succès !");
+                    msgContent.text("Une nouvelle grille a été créée avec succès.");
                     msgContainer.css('background-color', '#2ecc71');
                     msgContainer.fadeIn(100);
                     setTimeout(function () {
@@ -105,8 +107,8 @@
                 },
                 error: function () {
                     $('#submit-btn').prop('disabled', false);
-                    msgHeader.text("Error !");
-                    msgContent.text("Please check the information entered");
+                    msgHeader.text("Erreur !");
+                    msgContent.text("Veuillez vérifier les informations saisies");
                     msgContainer.css('background-color', '#e74c3c');
                     msgContainer.fadeIn(100);
                     setTimeout(function () {
