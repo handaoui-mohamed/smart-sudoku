@@ -28,10 +28,10 @@
     
         python db_generate.py
 
-9- Run server on dev mode: 
+8- Run server on dev mode: 
 
         python run.py
 
-10- Run server on prod mode: 
+9- Run server on prod mode: 
 
         python runp.py
