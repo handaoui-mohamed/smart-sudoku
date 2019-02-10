@@ -68,10 +68,9 @@ public class GameActivity extends AppCompatActivity {
             submitBnt.setEnabled(false);
 
             if (newGame) {
-                if(gridFromNotif.length() == 81) loadConfigFromNotif(gridFromNotif);
+                if (gridFromNotif.length() == 81) loadConfigFromNotif(gridFromNotif);
                 else loadTodayConfig();
-            }
-            else loadSavedConfig();
+            } else loadSavedConfig();
         }
 
         setGridTouchListener();
@@ -124,7 +123,7 @@ public class GameActivity extends AppCompatActivity {
         gamePreferences.saveGame(this, gameConfig + ":" + fixedItems, remainingTime);
     }
 
-    private void loadConfigFromNotif(String game){
+    private void loadConfigFromNotif(String game) {
         if (!game.equals("")) {
             gameOver = false;
 
