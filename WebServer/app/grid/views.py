@@ -51,7 +51,7 @@ def add_grid():
 @app.route('/api/grids/update')
 def check_update(last_update):
     grids = Grid.query\
-        .filter(Grid.date > datetime.strptime(last_update, "%Y-%m-%dT%H:%M:%SZ"))\
+        .filter(Grid.date > datetime.strptime(last_update, "%Y-%m-%dT%H:%M:%S.%fZ"))\
         .order_by(Grid.id.desc()).all()
     if(grids is not None):
         return jsonify({'new_grid':  [grid.to_json() for grid in grids]})
@@ -60,8 +60,10 @@ def check_update(last_update):
 @socketio.on('check_new_grid')
 def socket_check_update(last_update):
     # emit lastest config
+    print(last_update)
     grid = Grid.query\
-        .filter(Grid.date > datetime.strptime(last_update, "%Y-%m-%dT%H:%M:%SZ"))\
+        .filter(Grid.date > datetime.strptime(last_update, "%Y-%m-%dT%H:%M:%S.%fZ"))\
         .order_by(Grid.id.desc()).first()
     if(grid is not None):
+        print(grid.date)
         emit('new_grid_update', str(grid.to_json()))

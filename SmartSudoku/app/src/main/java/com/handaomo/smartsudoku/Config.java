@@ -1,8 +1,8 @@
 package com.handaomo.smartsudoku;
 
 public interface Config {
-//    String baseURL = "https://smart-sudoku.herokuapp.com/";
-    String baseURL = "http://192.168.43.28:5000/";
+    String baseURL = "https://smart-sudoku.herokuapp.com/";
+//    String baseURL = "http://192.168.43.28:5000/";
     String registerURL = baseURL + "register";
     String apiBaseURL = baseURL + "api/";
 

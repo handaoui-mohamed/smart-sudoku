@@ -69,7 +69,7 @@ public class GamePreferences {
     public String getLastUpdateDate(Context context) {
         return PreferenceManager
                 .getDefaultSharedPreferences(context)
-                .getString("last_update_date", "2019-02-01T21:16:00Z");
+                .getString("last_update_date", "2019-02-01T21:16:00.000000Z");
     }
 
     public void setLastUpdateDate(Context context, String date) {

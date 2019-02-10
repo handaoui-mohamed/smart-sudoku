@@ -35,13 +35,13 @@ public class GridNotificationService extends IntentService {
                     gridNotificationHelper.createNotification(grid.configuration.replaceAll("[u']",""));
 
                     try {
-                        sleep(1000);
+                        sleep(2000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                     // save last update date
                     TimeZone tz = TimeZone.getTimeZone("UTC");
-                    DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+                    DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'");
                     df.setTimeZone(tz);
                     String newDate = df.format(new Date());
                     GamePreferences.getInstance().setLastUpdateDate(mContext, newDate);

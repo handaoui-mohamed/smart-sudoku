@@ -63,7 +63,7 @@ public class SocketIoService extends IntentService {
 
         // save last update date
         TimeZone tz = TimeZone.getTimeZone("UTC");
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'");
         df.setTimeZone(tz);
         String newDate = df.format(new Date());
         GamePreferences.getInstance().setLastUpdateDate(mContext, newDate);
